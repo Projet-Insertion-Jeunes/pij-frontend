@@ -1,26 +1,53 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Couleurs officielles de la République de Guinée */
+  --guinea-red: #B8202E;
+  --guinea-yellow: #E8C547;
+  --guinea-green: #2D8659;
+  --secondary-red: #A31E2A;
+  --secondary-yellow: #D4B43E;
+  --secondary-green: #25714B;
+  --white: #FFFFFF;
+  --light-gray: #F8F9FA;
+  --dark-gray: #333333;
+  --text-gray: #666666;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--dark-gray);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .btn-primary {
+    @apply bg-guinea-red text-white px-6 py-3 rounded-full font-semibold hover:bg-secondary-red transition-all duration-300;
+  }
+  
+  .gradient-guinea {
+    background: linear-gradient(135deg, var(--guinea-red) 0%, var(--guinea-yellow) 50%, var(--guinea-green) 100%);
+  }
+  
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-guinea-red text-center mb-6 relative;
+  }
+  
+  .section-title::after {
+    content: '';
+    @apply absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-guinea-red via-guinea-yellow to-guinea-green rounded-full;
+  }
+}
+
+@layer utilities {
+  .text-guinea-red { color: var(--guinea-red); }
+  .text-guinea-yellow { color: var(--guinea-yellow); }
+  .text-guinea-green { color: var(--guinea-green); }
+  .bg-guinea-red { background-color: var(--guinea-red); }
+  .bg-guinea-yellow { background-color: var(--guinea-yellow); }
+  .bg-guinea-green { background-color: var(--guinea-green); }
 }
