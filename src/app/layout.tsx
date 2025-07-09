@@ -1,25 +1,52 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { PWAInstaller } from '@/composants/ui/PWAInstaller'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Projet Insertion des Jeunes Simandou 2040 | Ministère de la Jeunesse et des Sports',
-  description: 'Former la jeunesse, renforcer le capital humain et bâtir une Guinée prospère',
-  keywords: 'insertion jeunes, emploi guinée, formation professionnelle, simandou 2040',
+ title: 'PIJ Simandou 2040 | Insertion Professionnelle des Jeunes',
+ description: 'Plateforme d\'insertion professionnelle des jeunes guinéens - Former, accompagner, insérer',
+ keywords: 'insertion jeunes, emploi guinée, formation professionnelle, simandou 2040',
+ manifest: '/manifest.json',
+ themeColor: '#B8202E',
+ viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
 }
 
 export default function RootLayout({
-  children,
+ children,
 }: {
-  children: React.ReactNode
+ children: React.ReactNode
 }) {
-  return (
-    <html lang="fr">
-      <body className={inter.className}>
-        {children}
-      </body>
-    </html>
-  )
+ return (
+   <html lang="fr">
+     <head>
+       <link rel="icon" href="/icons/icon-192x192.png" />
+       <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+       <meta name="theme-color" content="#B8202E" />
+     </head>
+     <body className={inter.className}>
+       {children}
+       <PWAInstaller />
+       <script
+         dangerouslySetInnerHTML={{
+           __html: `
+             if ('serviceWorker' in navigator) {
+               window.addEventListener('load', function() {
+                 navigator.serviceWorker.register('/sw.js')
+                   .then(function(registration) {
+                     console.log('SW registered: ', registration);
+                   })
+                   .catch(function(registrationError) {
+                     console.log('SW registration failed: ', registrationError);
+                   });
+               });
+             }
+           `,
+         }}
+       />
+     </body>
+   </html>
+ )
 }

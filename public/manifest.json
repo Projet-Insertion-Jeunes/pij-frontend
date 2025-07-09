@@ -1,0 +1,39 @@
+{
+  "name": "PIJ Simandou 2040 - Insertion des Jeunes",
+  "short_name": "PIJ 2040",
+  "description": "Plateforme d'insertion professionnelle des jeunes guinéens",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#B8202E",
+  "theme_color": "#B8202E",
+  "orientation": "portrait",
+  "categories": ["employment", "education", "government"],
+  "lang": "fr",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Mes Candidatures",
+      "url": "/tableau-de-bord/jeune/candidatures",
+      "icons": [{"src": "/icons/icon-192x192.png", "sizes": "192x192"}]
+    },
+    {
+      "name": "Offres d'Emploi", 
+      "url": "/tableau-de-bord/jeune/offres",
+      "icons": [{"src": "/icons/icon-192x192.png", "sizes": "192x192"}]
+    }
+  ]
+}
