@@ -16,6 +16,14 @@ export function EnTete() {
     { href: '#contact', texte: 'Contact' },
   ]
 
+  const toggleMobileMenu = () => {
+    setMenuMobileOuvert(!menuMobileOuvert)
+  }
+
+  const closeMobileMenu = () => {
+    setMenuMobileOuvert(false)
+  }
+
   return (
     <header className="bg-white shadow-lg sticky top-0 z-50 border-b-4 border-guinea-red">
       {/* Bande gouvernementale */}
@@ -63,7 +71,7 @@ export function EnTete() {
 
           {/* Bouton menu mobile */}
           <button
-            onClick={() => setMenuMobileOuvert(!menuMobileOuvert)}
+            onClick={toggleMobileMenu}
             className="lg:hidden p-2"
           >
             {menuMobileOuvert ? <X size={24} /> : <Menu size={24} />}
@@ -79,7 +87,7 @@ export function EnTete() {
                   <Link
                     href={lien.href}
                     className="block px-4 py-3 text-dark-gray hover:bg-guinea-red hover:text-white rounded-lg transition-all duration-300"
-                    onClick={() => setMenuMobileOuvert(false)}
+                    onClick={closeMobileMenu}
                   >
                     {lien.texte}
                   </Link>

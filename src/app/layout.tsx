@@ -1,52 +1,93 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { PWAInstaller } from '@/composants/ui/PWAInstaller'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
- title: 'PIJ Simandou 2040 | Insertion Professionnelle des Jeunes',
- description: 'Plateforme d\'insertion professionnelle des jeunes guinéens - Former, accompagner, insérer',
- keywords: 'insertion jeunes, emploi guinée, formation professionnelle, simandou 2040',
- manifest: '/manifest.json',
- themeColor: '#B8202E',
- viewport: 'width=device-width, initial-scale=1, maximum-scale=5',
+  title: 'Projet Insertion des Jeunes Simandou 2040 | Ministère de la Jeunesse et des Sports',
+  description: 'Former la jeunesse, renforcer le capital humain et bâtir une Guinée prospère',
+  keywords: 'insertion jeunes, emploi guinée, formation professionnelle, simandou 2040',
+  authors: [{ name: 'Ministère de la Jeunesse et des Sports - République de Guinée' }],
+  creator: 'République de Guinée',
+  publisher: 'Ministère de la Jeunesse et des Sports',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL('http://localhost:3000'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'Projet Insertion des Jeunes Simandou 2040',
+    description: 'Former la jeunesse, renforcer le capital humain et bâtir une Guinée prospère',
+    url: 'http://localhost:3000',
+    siteName: 'PIJ Simandou 2040',
+    images: [
+      {
+        url: '/images/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Projet Insertion des Jeunes Simandou 2040',
+      },
+    ],
+    locale: 'fr_GN',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Projet Insertion des Jeunes Simandou 2040',
+    description: 'Former la jeunesse, renforcer le capital humain et bâtir une Guinée prospère',
+    images: ['/images/twitter-image.png'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/icons/icon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/icons/icon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+    apple: [
+      { url: '/icons/apple-icon-180x180.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+  manifest: '/manifest.json',
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#B8202E' },
+    { media: '(prefers-color-scheme: dark)', color: '#B8202E' },
+  ],
 }
 
 export default function RootLayout({
- children,
+  children,
 }: {
- children: React.ReactNode
+  children: React.ReactNode
 }) {
- return (
-   <html lang="fr">
-     <head>
-       <link rel="icon" href="/icons/icon-192x192.png" />
-       <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
-       <meta name="theme-color" content="#B8202E" />
-     </head>
-     <body className={inter.className}>
-       {children}
-       <PWAInstaller />
-       <script
-         dangerouslySetInnerHTML={{
-           __html: `
-             if ('serviceWorker' in navigator) {
-               window.addEventListener('load', function() {
-                 navigator.serviceWorker.register('/sw.js')
-                   .then(function(registration) {
-                     console.log('SW registered: ', registration);
-                   })
-                   .catch(function(registrationError) {
-                     console.log('SW registration failed: ', registrationError);
-                   });
-               });
-             }
-           `,
-         }}
-       />
-     </body>
-   </html>
- )
+  return (
+    <html lang="fr">
+      <body className={inter.className}>
+        {children}
+      </body>
+    </html>
+  )
 }
