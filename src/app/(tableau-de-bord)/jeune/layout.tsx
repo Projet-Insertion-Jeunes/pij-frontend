@@ -54,7 +54,7 @@ const navigationJeune = [
     icon: <DashboardIcon />,
   },
   {
-    segment: 'jeune/profil',
+    segment: 'jeune',
     title: 'Mon profil',
     icon: <PersonIcon />,
   },
@@ -120,12 +120,12 @@ export default function LayoutDashboardJeune({ children }: LayoutDashboardJeuneP
       router={router}
       theme={projectTheme}
       branding={{
-        title: 'Simandou 2040',
+        title: 'PIJ - Simandou 2040',
         logo: (
           <div style={{ 
-            width: 32, 
-            height: 32, 
-            backgroundColor: '#dc2626', 
+            width: 48, 
+            height: 48, 
+            backgroundColor: '#B8202E', 
             borderRadius: '8px',
             display: 'flex',
             alignItems: 'center',
@@ -134,7 +134,7 @@ export default function LayoutDashboardJeune({ children }: LayoutDashboardJeuneP
             fontWeight: 'bold',
             fontSize: '14px'
           }}>
-            S40
+            PIJ
           </div>
         ),
       }}
