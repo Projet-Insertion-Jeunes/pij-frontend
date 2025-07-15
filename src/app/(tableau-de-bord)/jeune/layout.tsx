@@ -1,6 +1,8 @@
 'use client'
-import { NavigationJeune } from '@/composants/navigation/NavigationJeune'
-import { EnTeteDashboard } from '@/composants/navigation/EnTeteDashboard'
+// import { NavigationJeune } from '@/composants/navigation/NavigationJeune'
+// import { EnTeteDashboard } from '@/composants/navigation/EnTeteDashboard'
+import { HeaderJeune } from '@/composants/navigation/HeaderJeune'
+import { SidebarJeune } from '@/composants/navigation/SidebarJeune'
 
 export default function LayoutDashboardJeune({
   children,
@@ -9,9 +11,11 @@ export default function LayoutDashboardJeune({
 }) {
   return (
     <div className="min-h-screen bg-gray-50">
-      <EnTeteDashboard typeUtilisateur="jeune" />
+      {/* <EnTeteDashboard typeUtilisateur="jeune" /> */}
+      <HeaderJeune/>
       <div className="flex">
-        <NavigationJeune />
+        {/* <NavigationJeune /> */}
+        <SidebarJeune/>
         <main className="flex-1 p-6">
           {children}
         </main>

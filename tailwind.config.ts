@@ -4,6 +4,7 @@ const config: Config = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/composants/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
@@ -29,6 +30,15 @@ const config: Config = {
           '50%': { transform: 'translateY(-10px)' },
           '100%': { transform: 'translateY(0px)' },
         }
+      }, 
+      fontFamily: {
+        'segoe': ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
+      },
+      boxShadow: {
+        'guinea': '0 10px 30px rgba(206, 17, 38, 0.1)',
+      },
+      backdropFilter: {
+        'blur-10': 'blur(10px)',
       }
     },
   },
