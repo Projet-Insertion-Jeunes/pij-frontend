@@ -1,8 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
-
 * {
     margin: 0;
     padding: 0;
@@ -666,6 +664,14 @@ footer {
     100% {
         transform: translateY(0px);
     }
+}
+@keyframes fade-in-out {
+  0% { opacity: 0; }
+  50% { opacity: 1; }
+  100% { opacity: 0; }
+}
+.animate-fade-in-out {
+  animation: fade-in-out 2s ease-in-out;
 }
 
 @media (max-width: 768px) {
