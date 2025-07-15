@@ -195,7 +195,7 @@ export default function DashboardJeune() {
 
       <Grid container spacing={3}>
         {/* Sidebar du profil */}
-        <Grid item xs={12} md={4}>
+        <Grid item size={{ xs: 12, md: 4 }}>
           <Card sx={{ mb: 2 }}>
             <CardContent sx={{ textAlign: 'center' }}>
               <Box sx={{ position: 'relative', display: 'inline-block', mb: 2 }}>
@@ -347,7 +347,7 @@ export default function DashboardJeune() {
         </Grid>
 
         {/* Contenu principal avec onglets */}
-        <Grid item xs={12} md={8}>
+        <Grid item size={{ xs: 12, md: 8 }}>
           <Card>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <Tabs value={tabValue} onChange={handleTabChange} variant="scrollable" scrollButtons="auto">
