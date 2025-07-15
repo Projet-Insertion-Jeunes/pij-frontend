@@ -83,16 +83,16 @@ function a11yProps(index: number) {
 // Données d'exemple pour le profil
 const profileData = {
   user: {
-    name: 'Mamadou DIALLO',
-    email: 'mamadou.diallo@gmail.com',
-    phone: '+224 628 12 34 56',
-    dateNaissance: '1998-03-15',
-    region: 'Kindia',
-    niveauEducation: 'Lycée',
-    secteurInteresse: 'BTP & Construction',
-    disponibilite: 'Immédiatement',
+    name: 'BANO Barry',
+    email: 'bano.barry@gmail.com',
+    phone: '+224 627 11 63 54',
+    dateNaissance: '2004-01-01',
+    region: 'Conakry',
+    niveauEducation: 'Licence',
+    secteurInteresse: 'Services numériques',
+    disponibilite: 'Dans 3 mois',
     mobilite: 'Dans ma région',
-    aspirations: 'Je souhaite me spécialiser dans le BTP, particulièrement dans la construction d\'infrastructures. Mon objectif est de devenir chef de chantier dans les 5 prochaines années.',
+    aspirations: 'Je souhaite me spécialiser dans le numérique, particulièrement dans la sécurité informatique. Mon objectif est de devenir chef de projet dans les 5 prochaines années.',
     photo: null
   },
   stats: {
@@ -195,7 +195,7 @@ export default function DashboardJeune() {
 
       <Grid container spacing={3}>
         {/* Sidebar du profil */}
-        <Grid item size={{ xs: 12, md: 4 }}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Card sx={{ mb: 2 }}>
             <CardContent sx={{ textAlign: 'center' }}>
               <Box sx={{ position: 'relative', display: 'inline-block', mb: 2 }}>
@@ -265,7 +265,7 @@ export default function DashboardJeune() {
           <Card sx={{ mb: 2 }}>
             <CardContent>
               <Grid container spacing={2}>
-                <Grid item xs={6}>
+                <Grid xs={6}>
                   <Box sx={{ textAlign: 'center' }}>
                     <Typography variant="h4" color="primary" fontWeight="bold">
                       {profileData.stats.candidatures}
@@ -275,7 +275,7 @@ export default function DashboardJeune() {
                     </Typography>
                   </Box>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid xs={6}>
                   <Box sx={{ textAlign: 'center' }}>
                     <Typography variant="h4" color="warning.main" fontWeight="bold">
                       {profileData.stats.enCours}
@@ -285,7 +285,7 @@ export default function DashboardJeune() {
                     </Typography>
                   </Box>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid xs={6}>
                   <Box sx={{ textAlign: 'center' }}>
                     <Typography variant="h4" color="success.main" fontWeight="bold">
                       {profileData.stats.noteMoyenne}
@@ -295,7 +295,7 @@ export default function DashboardJeune() {
                     </Typography>
                   </Box>
                 </Grid>
-                <Grid item xs={6}>
+                <Grid xs={6}>
                   <Box sx={{ textAlign: 'center' }}>
                     <Typography variant="h4" color="info.main" fontWeight="bold">
                       {profileData.stats.formations}
@@ -322,7 +322,7 @@ export default function DashboardJeune() {
             <CardContent>
               <Grid container spacing={1}>
                 {profileData.badges.map((badge) => (
-                  <Grid item xs={4} key={badge.id}>
+                  <Grid xs={4} key={badge.id}>
                     <Paper
                       sx={{
                         p: 1,
@@ -347,7 +347,7 @@ export default function DashboardJeune() {
         </Grid>
 
         {/* Contenu principal avec onglets */}
-        <Grid item size={{ xs: 12, md: 8 }}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <Card>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
               <Tabs value={tabValue} onChange={handleTabChange} variant="scrollable" scrollButtons="auto">
@@ -367,7 +367,7 @@ export default function DashboardJeune() {
                 </Typography>
                 
                 <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
+                  <Grid size={{ xs: 12, sm: 6 }}>
                     <TextField
                       fullWidth
                       label="Nom"
@@ -376,7 +376,7 @@ export default function DashboardJeune() {
                       variant="outlined"
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid size={{ xs: 12, sm: 6 }}>
                     <TextField
                       fullWidth
                       label="Prénom"
@@ -385,7 +385,7 @@ export default function DashboardJeune() {
                       variant="outlined"
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid size={{ xs: 12, sm: 6 }}>
                     <TextField
                       fullWidth
                       label="Email"
@@ -397,7 +397,7 @@ export default function DashboardJeune() {
                       variant="outlined"
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid size={{ xs: 12, sm: 6 }}>
                     <TextField
                       fullWidth
                       label="Téléphone"
@@ -408,7 +408,7 @@ export default function DashboardJeune() {
                       variant="outlined"
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid size={{ xs: 12, sm: 6 }}>
                     <TextField
                       fullWidth
                       label="Date de naissance"
@@ -422,7 +422,7 @@ export default function DashboardJeune() {
                       variant="outlined"
                     />
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid size={{ xs: 12, sm: 6 }}>
                     <FormControl fullWidth>
                       <InputLabel>Région</InputLabel>
                       <Select
@@ -447,10 +447,10 @@ export default function DashboardJeune() {
                 </Typography>
 
                 <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
+                  <Grid size={{ xs: 12, sm: 6 }}>
                     <FormControl fullWidth>
                       <InputLabel>Niveau d'éducation</InputLabel>
-                      <Select value="lycee" label="Niveau d'éducation">
+                      <Select value="universitaire" label="Niveau d'éducation">
                         <MenuItem value="lycee">Lycée</MenuItem>
                         <MenuItem value="universitaire">Universitaire</MenuItem>
                         <MenuItem value="formation_pro">Formation professionnelle</MenuItem>
@@ -458,10 +458,10 @@ export default function DashboardJeune() {
                       </Select>
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid size={{ xs: 12, sm: 6 }}>
                     <FormControl fullWidth>
                       <InputLabel>Secteur d'intérêt</InputLabel>
-                      <Select value="btp" label="Secteur d'intérêt">
+                      <Select value="numerique" label="Secteur d'intérêt">
                         <MenuItem value="btp">BTP & Construction</MenuItem>
                         <MenuItem value="agro">Agro-industrie</MenuItem>
                         <MenuItem value="numerique">Services numériques</MenuItem>
@@ -470,10 +470,10 @@ export default function DashboardJeune() {
                       </Select>
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid size={{ xs: 12, sm: 6 }}>
                     <FormControl fullWidth>
                       <InputLabel>Disponibilité</InputLabel>
-                      <Select value="immediat" label="Disponibilité">
+                      <Select value="3_mois" label="Disponibilité">
                         <MenuItem value="immediat">Immédiatement</MenuItem>
                         <MenuItem value="1_mois">Dans 1 mois</MenuItem>
                         <MenuItem value="3_mois">Dans 3 mois</MenuItem>
@@ -481,7 +481,7 @@ export default function DashboardJeune() {
                       </Select>
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12} sm={6}>
+                  <Grid size={{ xs: 12, sm: 6 }}>
                     <FormControl fullWidth>
                       <InputLabel>Mobilité géographique</InputLabel>
                       <Select value="region" label="Mobilité géographique">
@@ -491,7 +491,7 @@ export default function DashboardJeune() {
                       </Select>
                     </FormControl>
                   </Grid>
-                  <Grid item xs={12}>
+                  <Grid size={{ xs: 12 }}>
                     <TextField
                       fullWidth
                       label="Aspirations professionnelles"
@@ -677,7 +677,7 @@ export default function DashboardJeune() {
               </Typography>
               
               <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
+                <Grid xs={12} sm={6}>
                   <FormControl fullWidth>
                     <InputLabel>Français</InputLabel>
                     <Select value="courant" label="Français">
@@ -688,7 +688,7 @@ export default function DashboardJeune() {
                     </Select>
                   </FormControl>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid xs={12} sm={6}>
                   <FormControl fullWidth>
                     <InputLabel>Anglais</InputLabel>
                     <Select value="debutant" label="Anglais">
@@ -699,7 +699,7 @@ export default function DashboardJeune() {
                     </Select>
                   </FormControl>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid xs={12} sm={6}>
                   <FormControl fullWidth>
                     <InputLabel>Langue nationale principale</InputLabel>
                     <Select value="malinke" label="Langue nationale principale">
@@ -712,7 +712,7 @@ export default function DashboardJeune() {
                     </Select>
                   </FormControl>
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid xs={12} sm={6}>
                   <TextField
                     fullWidth
                     label="Autres langues"
@@ -741,7 +741,7 @@ export default function DashboardJeune() {
 
               <Grid container spacing={2}>
                 {profileData.documents.map((doc) => (
-                  <Grid item xs={12} sm={6} md={4} key={doc.id}>
+                  <Grid xs={12} sm={6} md={4} key={doc.id}>
                     <Paper
                       sx={{
                         p: 2,

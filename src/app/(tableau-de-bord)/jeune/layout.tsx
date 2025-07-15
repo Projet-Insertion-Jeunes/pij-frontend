@@ -31,6 +31,9 @@ const projectTheme = createTheme({
         secondary: {
           main: '#2D8659', // Vert du projet
         },
+         warning: {
+          main: '#E8C547', // Jaune officiel Guinée
+        },
       }
     }, 
     dark: true 
@@ -125,7 +128,7 @@ export default function LayoutDashboardJeune({ children }: LayoutDashboardJeuneP
           <div style={{ 
             width: 48, 
             height: 48, 
-            backgroundColor: '#B8202E', 
+            background: 'linear-gradient(45deg, var(--guinea-red), var(--guinea-green))',
             borderRadius: '8px',
             display: 'flex',
             alignItems: 'center',
