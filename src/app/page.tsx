@@ -1,4 +1,4 @@
-'use client'
+  'use client'
 
 import { serviceAuth } from '@/services/auth'
 import { useState, useRef } from 'react'
@@ -7,6 +7,7 @@ import Image from 'next/image'
 
 export default function PageAccueil() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isLoginMode, setIsLoginMode] = useState(false) // NOUVEAU : Mode connexion/inscription
   const formRef = useRef<HTMLFormElement>(null)
 
   return (
@@ -45,6 +46,15 @@ export default function PageAccueil() {
             <li><a href="#partenaires">Partenaires</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
+          {/* NOUVEAU : Bouton de connexion dans la navigation */}
+          <div className="nav-auth-buttons">
+            <button 
+              onClick={() => setIsLoginMode(!isLoginMode)} 
+              className="btn-connexion"
+            >
+              {isLoginMode ? 'S\'inscrire' : 'Se connecter'}
+            </button>
+          </div>
           <button className="mobile-menu-toggle" onClick={() => toggleMobileMenu()}>☰</button>
           <div className="mobile-nav" id="mobileNav">
             <ul>
@@ -58,6 +68,8 @@ export default function PageAccueil() {
               <li><a href="#accessibilite" onClick={() => closeMobileMenu()}>Accessibilité</a></li>
               <li><a href="#partenaires" onClick={() => closeMobileMenu()}>Partenaires</a></li>
               <li><a href="#contact" onClick={() => closeMobileMenu()}>Contact</a></li>
+              {/* NOUVEAU : Bouton connexion mobile */}
+              <li><button onClick={() => { setIsLoginMode(!isLoginMode); closeMobileMenu(); }}>Se connecter</button></li>
             </ul>
           </div>
         </nav>
@@ -75,7 +87,16 @@ export default function PageAccueil() {
             <div className="national-motto">
               Un pont vers la prospérité ! 🇬🇳
             </div>
-            <a href="#inscription" className="cta-button pulse">Rejoindre le programme</a>
+            <div className="hero-buttons">
+              <a href="#inscription" className="cta-button pulse">Rejoindre le programme</a>
+              {/* NOUVEAU : Bouton connexion dans le hero */}
+              <button 
+                onClick={() => setIsLoginMode(!isLoginMode)} 
+                className="cta-button-secondary"
+              >
+                {isLoginMode ? 'S\'inscrire' : 'Accéder à mon espace'}
+              </button>
+            </div>
           </div>
         </div>
       </section>
@@ -83,55 +104,89 @@ export default function PageAccueil() {
       <section className="contact-section" id="inscription">
         <div className="container">
           <div className="section-header">
-            <h2 className="section-title">Rejoindre le Programme</h2>
+            <h2 className="section-title">
+              {isLoginMode ? 'Se Connecter' : 'Rejoindre le Programme'}
+            </h2>
             <p style={{fontSize: '1.1rem', color: 'var(--text-gray)'}}>
-              Inscrivez-vous dès maintenant pour bénéficier du programme d'insertion Simandou 2040
+              {isLoginMode 
+                ? 'Accédez à votre espace personnel pour suivre votre progression'
+                : 'Inscrivez-vous dès maintenant pour bénéficier du programme d\'insertion Simandou 2040'
+              }
+            </p>
+            {/* NOUVEAU : Lien pour basculer entre modes */}
+            <p style={{fontSize: '1rem', color: 'var(--text-gray)', marginTop: '0.5rem'}}>
+              {isLoginMode ? (
+                <>Pas encore de compte ? <button onClick={() => setIsLoginMode(false)} style={{color: 'var(--guinea-red)', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer'}}>S'inscrire</button></>
+              ) : (
+                <>Déjà inscrit ? <button onClick={() => setIsLoginMode(true)} style={{color: 'var(--guinea-red)', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer'}}>Se connecter</button></>
+              )}
             </p>
           </div>
 
-          <form ref={formRef} className="contact-form" onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label htmlFor="nom">Nom complet *</label>
-              <input type="text" id="nom" name="nom" required />
-            </div>
+          {/* NOUVEAU : Formulaire dynamique */}
+          {isLoginMode ? (
+            // FORMULAIRE DE CONNEXION
+            <form ref={formRef} className="contact-form" onSubmit={handleLoginSubmit}>
+              <div className="form-group">
+                <label htmlFor="loginEmail">Email *</label>
+                <input type="email" id="loginEmail" name="loginEmail" required />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="email">Email *</label>
-              <input type="email" id="email" name="email" required />
-            </div>
+              <div className="form-group">
+                <label htmlFor="loginPassword">Mot de passe *</label>
+                <input type="password" id="loginPassword" name="loginPassword" required />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="telephone">Téléphone *</label>
-              <input type="tel" id="telephone" name="telephone" required placeholder="622123456 (format guinéen)" />
-            </div>
+              <button type="submit" disabled={isSubmitting} className="cta-button" style={{width: '100%'}}>
+                {isSubmitting ? 'Connexion en cours...' : 'Se connecter'}
+              </button>
+            </form>
+          ) : (
+            // FORMULAIRE D'INSCRIPTION (existant)
+            <form ref={formRef} className="contact-form" onSubmit={handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="nom">Nom complet *</label>
+                <input type="text" id="nom" name="nom" required />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="password">Mot de passe *</label>
-              <input type="password" id="password" name="password" required minLength={6} />
-            </div>
+              <div className="form-group">
+                <label htmlFor="email">Email *</label>
+                <input type="email" id="email" name="email" required />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="confirmPassword">Confirmer le mot de passe *</label>
-              <input type="password" id="confirmPassword" name="confirmPassword" required minLength={6} />
-              <small id="passwordError" style={{color: 'red', display: 'none'}}>Les mots de passe ne correspondent pas</small>
-            </div>
+              <div className="form-group">
+                <label htmlFor="telephone">Téléphone *</label>
+                <input type="tel" id="telephone" name="telephone" required placeholder="622123456 (format guinéen)" />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="dateNaissance">Date de naissance *</label>
-              <input type="date" id="dateNaissance" name="dateNaissance" required />
-            </div>
+              <div className="form-group">
+                <label htmlFor="password">Mot de passe *</label>
+                <input type="password" id="password" name="password" required minLength={6} />
+              </div>
 
-            <div className="form-group">
-              <label style={{display: 'flex', alignItems: 'center', cursor: 'pointer'}}>
-                <input type="checkbox" name="conditions" required />
-                <span style={{marginLeft: '0.5rem'}}>J'accepte les conditions d'utilisation *</span>
-              </label>
-            </div>
+              <div className="form-group">
+                <label htmlFor="confirmPassword">Confirmer le mot de passe *</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required minLength={6} />
+                <small id="passwordError" style={{color: 'red', display: 'none'}}>Les mots de passe ne correspondent pas</small>
+              </div>
 
-            <button type="submit" disabled={isSubmitting} className="cta-button" style={{width: '100%'}}>
-              {isSubmitting ? 'Inscription en cours...' : 'Rejoindre Simandou 2040 ! 🚀'}
-            </button>
-          </form>
+              <div className="form-group">
+                <label htmlFor="dateNaissance">Date de naissance *</label>
+                <input type="date" id="dateNaissance" name="dateNaissance" required />
+              </div>
+
+              <div className="form-group">
+                <label style={{display: 'flex', alignItems: 'center', cursor: 'pointer'}}>
+                  <input type="checkbox" name="conditions" required />
+                  <span style={{marginLeft: '0.5rem'}}>J'accepte les conditions d'utilisation *</span>
+                </label>
+              </div>
+
+              <button type="submit" disabled={isSubmitting} className="cta-button" style={{width: '100%'}}>
+                {isSubmitting ? 'Inscription en cours...' : 'Rejoindre Simandou 2040 ! 🚀'}
+              </button>
+            </form>
+          )}
         </div>
       </section>
 
@@ -622,11 +677,86 @@ export default function PageAccueil() {
     </>
   )
 
+  // NOUVEAU : Fonction de connexion
+  async function handleLoginSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    setIsSubmitting(true)
+    
+    const formData = new FormData(event.currentTarget)
+    const email = formData.get('loginEmail') as string
+    const password = formData.get('loginPassword') as string
+
+    try {
+      console.log('🔍 Tentative de connexion...')
+      
+      // CORRECTION : URL correcte pour l'authentification
+      const response = await fetch('http://localhost:8000/api/v1/auth/login/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
+      })
+
+      console.log(' Response status:', response.status)
+      const text = await response.text()
+      console.log('🔍 Response text:', text)
+
+      // SI HTML = ERREUR SERVEUR
+      if (text.includes('<!DOCTYPE') || text.includes('<html')) {
+        alert('❌ ERREUR: Le serveur Django ne répond pas. Redémarrez le backend !')
+        return
+      }
+
+      const data = JSON.parse(text)
+
+      if (response.ok) {
+        console.log('✅ Connexion réussie:', data)
+        
+        // Sauvegarder les tokens
+        if (typeof window !== 'undefined') {
+          localStorage.setItem('access_token', data.tokens.access)
+          localStorage.setItem('refresh_token', data.tokens.refresh)
+          localStorage.setItem('utilisateur', JSON.stringify(data.user))
+        }
+
+        alert('✅ CONNEXION RÉUSSIE ! Redirection vers votre espace...')
+        
+        // Redirection selon le type d'utilisateur
+        const userType = data.user.user_type
+        switch (userType) {
+          case 'jeune':
+            window.location.href = '/jeune'
+            break
+          case 'entreprise':
+            window.location.href = '/entreprise'
+            break
+          case 'admin':
+            window.location.href = '/admin'
+            break
+          default:
+            window.location.href = '/jeune'
+        }
+      } else {
+        console.log('🚨 Erreur connexion:', data)
+        const errorMessage = data.error || data.non_field_errors?.[0] || 'Email ou mot de passe incorrect'
+        alert('❌ ERREUR: ' + errorMessage)
+      }
+
+    } catch (error: any) {
+      console.log('🚨 Exception connexion:', error)
+      alert('❌ ERREUR: ' + error.message)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  // Fonction d'inscription existante (corrigée)
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    
     setIsSubmitting(true)
-
+    
     const formData = new FormData(event.currentTarget)
     const password = formData.get('password') as string
     const confirmPassword = formData.get('confirmPassword') as string
@@ -648,12 +778,7 @@ export default function PageAccueil() {
       return
     }
 
-    const button = event.currentTarget.querySelector('button[type="submit"]') as HTMLButtonElement
-    button.textContent = 'Inscription...'
-    button.disabled = true
-
     try {
-      // APPEL API SIMPLE
       const response = await fetch('http://localhost:8000/api/v1/users/register/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -671,20 +796,20 @@ export default function PageAccueil() {
 
       const text = await response.text()
       
-      // SI HTML = ERREUR SERVEUR
       if (text.includes('<!DOCTYPE') || text.includes('<html')) {
         alert('❌ ERREUR: Le serveur Django ne répond pas. Redémarrez le backend !')
-        setIsSubmitting(false)
         return
       }
 
       const data = JSON.parse(text)
 
       if (response.ok) {
-        alert('✅ INSCRIPTION RÉUSSIE ! Vérifiez votre base de données.')
+        alert('✅ INSCRIPTION RÉUSSIE ! Vous pouvez maintenant vous connecter.')
         if (formRef.current) {
           formRef.current.reset()
         }
+        // Basculer automatiquement vers le mode connexion
+        setIsLoginMode(true)
       } else {
         alert('❌ ERREUR: ' + (data.phone_number?.[0] || data.email?.[0] || 'Erreur inconnue'))
       }
@@ -697,7 +822,7 @@ export default function PageAccueil() {
   }
 }
 
-// Fonctions utilitaires déplacées ici
+// Fonctions utilitaires
 function toggleMobileMenu() {
   const mobileNav = document.getElementById('mobileNav')
   mobileNav?.classList.toggle('active')

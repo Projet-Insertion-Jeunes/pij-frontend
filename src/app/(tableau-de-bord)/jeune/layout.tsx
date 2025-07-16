@@ -1,6 +1,4 @@
 'use client'
-import { NavigationJeune } from '@/composants/navigation/NavigationJeune'
-import { EnTeteDashboard } from '@/composants/navigation/EnTeteDashboard'
 
 export default function LayoutDashboardJeune({
   children,
@@ -9,12 +7,11 @@ export default function LayoutDashboardJeune({
 }) {
   return (
     <div className="min-h-screen bg-gray-50">
-      <EnTeteDashboard typeUtilisateur="jeune" />
-      <div className="flex">
-        <NavigationJeune />
-        <main className="flex-1 p-6">
-          {children}
-        </main>
+      <div className="p-6">
+        <h1 className="text-2xl font-bold text-gray-900 mb-6">
+          Bonjour, Mamadou
+        </h1>
+        {children}
       </div>
     </div>
   )

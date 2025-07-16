@@ -632,6 +632,100 @@ footer {
     }
 }
 
+/* Styles pour la page de connexion */
+.gradient-guinea {
+  background: linear-gradient(135deg, var(--guinea-red) 0%, var(--guinea-yellow) 50%, var(--guinea-green) 100%);
+  min-height: 100vh;
+}
+
+/* Variables CSS pour les couleurs */
+:root {
+  --guinea-red: #CE1126;
+  --guinea-yellow: #FCD116;
+  --guinea-green: #009460;
+  --secondary-red: #B4202E;
+  --text-gray: #6B7280;
+  --dark-gray: #374151;
+  --light-gray: #F9FAFB;
+}
+
+/* Styles pour les boutons d'authentification */
+.nav-auth-buttons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-connexion {
+  background: var(--guinea-red);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border: 2px solid var(--guinea-red);
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.btn-connexion:hover {
+  background: transparent;
+  color: var(--guinea-red);
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.cta-button-secondary {
+  background: transparent;
+  color: var(--guinea-red);
+  border: 2px solid var(--guinea-red);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.cta-button-secondary:hover {
+  background: var(--guinea-red);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(206, 17, 38, 0.3);
+}
+
+/* Animation de transition pour le formulaire */
+.contact-form {
+  transition: all 0.3s ease;
+}
+
+/* Responsive pour mobile */
+@media (max-width: 768px) {
+  .nav-auth-buttons {
+    display: none;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cta-button-secondary {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+}
+
 @media (max-width: 768px) {
     .hero h1 {
         font-size: 2.2rem;

@@ -3,9 +3,12 @@ import { ConnexionInterface, InscriptionJeuneInterface, InscriptionEntrepriseInt
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1'
 
 class ServiceAuth {
+  // CORRECTION : URL correcte pour l'authentification
   private baseURL = `${API_BASE_URL}/auth`
 
   async connexion(donnees: ConnexionInterface): Promise<ReponseAuth> {
+    console.log('🔍 Tentative de connexion:', donnees.email)
+    
     const response = await fetch(`${this.baseURL}/login/`, {
       method: 'POST',
       headers: {
@@ -17,12 +20,16 @@ class ServiceAuth {
       }),
     })
 
+    console.log(' Response status:', response.status)
+
     if (!response.ok) {
       const erreur = await response.json()
-      throw new Error(erreur.error || 'Erreur de connexion')
+      console.log('🚨 Erreur connexion:', erreur)
+      throw new Error(erreur.error || erreur.non_field_errors?.[0] || 'Erreur de connexion')
     }
 
     const donnéesReponse = await response.json()
+    console.log('✅ Connexion réussie:', donnéesReponse)
     
     if (typeof window !== 'undefined') {
       localStorage.setItem('access_token', donnéesReponse.tokens.access)
