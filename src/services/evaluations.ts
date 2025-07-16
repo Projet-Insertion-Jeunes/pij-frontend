@@ -8,7 +8,7 @@ import {
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1'
 
 class ServiceEvaluations {
- private baseURL = `${API_BASE_URL}/evaluations`
+ private baseURL = `${API_BASE_URL}/applications`
 
  private obtenirToken(): string | null {
    return typeof window !== 'undefined' ? localStorage.getItem('access_token') : null
@@ -32,7 +32,7 @@ class ServiceEvaluations {
      })
    }
 
-   const response = await fetch(`${this.baseURL}/mes-evaluations/?${params}`, {
+   const response = await fetch(`${this.baseURL}/candidatures-avancees/mes-evaluations/?${params}`, {
      headers: this.obtenirEntetes()
    })
 
@@ -54,7 +54,7 @@ class ServiceEvaluations {
      })
    }
 
-   const response = await fetch(`${this.baseURL}/donnees/?${params}`, {
+   const response = await fetch(`${this.baseURL}/candidatures-avancees/?${params}`, {
      headers: this.obtenirEntetes()
    })
 
@@ -67,7 +67,7 @@ class ServiceEvaluations {
  }
 
  async creerEvaluation(donnees: CreerEvaluationInterface): Promise<EvaluationEmployeurInterface> {
-   const response = await fetch(`${this.baseURL}/creer/`, {
+   const response = await fetch(`${this.baseURL}/candidatures-avancees/${donnees.candidatureId}/evaluer/`, {
      method: 'POST',
      headers: this.obtenirEntetes(),
      body: JSON.stringify(donnees)
@@ -82,7 +82,7 @@ class ServiceEvaluations {
  }
 
  async obtenirDetailEvaluation(id: string): Promise<EvaluationEmployeurInterface> {
-   const response = await fetch(`${this.baseURL}/detail/${id}/`, {
+   const response = await fetch(`${this.baseURL}/candidatures-avancees/${id}/`, {
      headers: this.obtenirEntetes()
    })
 
@@ -94,7 +94,7 @@ class ServiceEvaluations {
  }
 
  async obtenirCriteresEvaluation(): Promise<CritereEvaluationInterface[]> {
-   const response = await fetch(`${this.baseURL}/criteres/`, {
+   const response = await fetch(`${this.baseURL}/processus/criteres-evaluation/`, {
      headers: this.obtenirEntetes()
    })
 
@@ -102,11 +102,12 @@ class ServiceEvaluations {
      throw new Error('Erreur lors du chargement des critères')
    }
 
-   return await response.json()
+   const data = await response.json()
+   return data.results || data
  }
 
  async obtenirMesStatistiques(): Promise<StatistiqueEvaluationInterface> {
-   const response = await fetch(`${this.baseURL}/mes-statistiques/`, {
+   const response = await fetch(`${this.baseURL}/analytics/`, {
      headers: this.obtenirEntetes()
    })
 
@@ -118,7 +119,7 @@ class ServiceEvaluations {
  }
 
  async marquerEvaluationLue(evaluationId: string): Promise<void> {
-   const response = await fetch(`${this.baseURL}/${evaluationId}/marquer-lue/`, {
+   const response = await fetch(`${this.baseURL}/candidatures-avancees/${evaluationId}/marquer-lu/`, {
      method: 'POST',
      headers: this.obtenirEntetes()
    })
@@ -129,7 +130,7 @@ class ServiceEvaluations {
  }
 
  async repondreEvaluation(evaluationId: string, reponse: string): Promise<EvaluationEmployeurInterface> {
-   const response = await fetch(`${this.baseURL}/${evaluationId}/repondre/`, {
+   const response = await fetch(`${this.baseURL}/candidatures-avancees/${evaluationId}/repondre/`, {
      method: 'POST',
      headers: this.obtenirEntetes(),
      body: JSON.stringify({ reponse })
@@ -154,7 +155,7 @@ async obtenirEvaluationsPubliquesJeune(jeuneId: string): Promise<{
    }
    evaluations: EvaluationEmployeurInterface[]
  }> {
-   const response = await fetch(`${this.baseURL}/publiques/${jeuneId}/`, {
+   const response = await fetch(`${this.baseURL}/candidatures-avancees/jeune/${jeuneId}/evaluations-publiques/`, {
      headers: this.obtenirEntetes()
    })
 

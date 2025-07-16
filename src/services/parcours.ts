@@ -29,11 +29,12 @@ class ServiceParcours {
       throw new Error('Erreur lors du chargement des types de parcours')
     }
 
-    return await response.json()
+    const data = await response.json()
+    return data.results || data
   }
 
-  async obtenirDetailTypeParcours(type: string): Promise<TypeParcoursInterface> {
-    const response = await fetch(`${this.baseURL}/types/${type}/`)
+  async obtenirDetailTypeParcours(id: string): Promise<TypeParcoursInterface> {
+    const response = await fetch(`${this.baseURL}/types/${id}/`)
     
     if (!response.ok) {
       throw new Error('Type de parcours non trouvé')
@@ -43,7 +44,7 @@ class ServiceParcours {
   }
 
   async obtenirMesParcours(): Promise<InscriptionParcoursInterface[]> {
-    const response = await fetch(`${this.baseURL}/mes-parcours/`, {
+    const response = await fetch(`${this.baseURL}/inscriptions/mes-inscriptions/`, {
       headers: this.obtenirEntetes()
     })
 
@@ -51,14 +52,14 @@ class ServiceParcours {
       throw new Error('Erreur lors du chargement de vos parcours')
     }
 
-    return await response.json()
+    const data = await response.json()
+    return data.results || data
   }
 
-  async inscrireParcours(typeParcours: string): Promise<InscriptionParcoursInterface> {
-    const response = await fetch(`${this.baseURL}/inscrire/`, {
+  async inscrireParcours(typeParcoursId: string): Promise<InscriptionParcoursInterface> {
+    const response = await fetch(`${this.baseURL}/types/${typeParcoursId}/sinscrire/`, {
       method: 'POST',
-      headers: this.obtenirEntetes(),
-      body: JSON.stringify({ type_parcours_id: typeParcours })
+      headers: this.obtenirEntetes()
     })
 
     if (!response.ok) {
@@ -70,7 +71,7 @@ class ServiceParcours {
   }
 
   async obtenirDetailMonParcours(id: string): Promise<InscriptionParcoursInterface> {
-    const response = await fetch(`${this.baseURL}/detail/${id}/`, {
+    const response = await fetch(`${this.baseURL}/inscriptions/${id}/`, {
       headers: this.obtenirEntetes()
     })
 
@@ -81,11 +82,11 @@ class ServiceParcours {
     return await response.json()
   }
 
-  async commencerModule(parcoursId: string, moduleId: string): Promise<{
+  async commencerModule(moduleId: string): Promise<{
     message: string
     progression: ProgressionModuleInterface
   }> {
-    const response = await fetch(`${this.baseURL}/${parcoursId}/modules/${moduleId}/commencer/`, {
+    const response = await fetch(`${this.baseURL}/modules/${moduleId}/commencer/`, {
       method: 'POST',
       headers: this.obtenirEntetes()
     })
@@ -98,12 +99,12 @@ class ServiceParcours {
     return await response.json()
   }
 
-  async terminerModule(parcoursId: string, moduleId: string, note: number): Promise<{
+  async terminerModule(progressionId: string, note: number): Promise<{
     message: string
     progression: ProgressionModuleInterface
     parcoursProgression: number
   }> {
-    const response = await fetch(`${this.baseURL}/${parcoursId}/modules/${moduleId}/terminer/`, {
+    const response = await fetch(`${this.baseURL}/progressions/${progressionId}/terminer/`, {
       method: 'POST',
       headers: this.obtenirEntetes(),
       body: JSON.stringify({ note })

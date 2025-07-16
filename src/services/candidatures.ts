@@ -9,7 +9,7 @@ import {
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1'
 
 class ServiceCandidatures {
- private baseURL = `${API_BASE_URL}/candidatures`
+ private baseURL = `${API_BASE_URL}/jobs`
 
  private obtenirToken(): string | null {
    return typeof window !== 'undefined' ? localStorage.getItem('access_token') : null
@@ -33,7 +33,7 @@ class ServiceCandidatures {
      })
    }
 
-   const response = await fetch(`${this.baseURL}/mes-candidatures/?${params}`, {
+   const response = await fetch(`${this.baseURL}/candidatures/mes-candidatures/?${params}`, {
      headers: this.obtenirEntetes()
    })
 
@@ -46,25 +46,15 @@ class ServiceCandidatures {
  }
 
  async creerCandidature(donnees: CreerCandidatureInterface): Promise<CandidatureInterface> {
-   const formData = new FormData()
-   formData.append('offre_id', donnees.offreId)
-   formData.append('lettre_motivation', donnees.lettreMotivation)
-   
-   if (donnees.cvPersonnalise) {
-     formData.append('cv_personnalise', donnees.cvPersonnalise)
-   }
-   
-   if (donnees.documentsComplementaires) {
-     formData.append('documents_complementaires', donnees.documentsComplementaires)
-   }
-
-   const token = this.obtenirToken()
-   const response = await fetch(`${this.baseURL}/creer/`, {
+   const response = await fetch(`${this.baseURL}/offres/${donnees.offreId}/candidater/`, {
      method: 'POST',
      headers: {
-       'Authorization': `Bearer ${token}`
+       'Content-Type': 'application/json',
+       'Authorization': `Bearer ${this.obtenirToken()}`
      },
-     body: formData
+     body: JSON.stringify({
+       lettre_motivation: donnees.lettreMotivation
+     })
    })
 
    if (!response.ok) {
@@ -76,7 +66,7 @@ class ServiceCandidatures {
  }
 
  async obtenirDetailCandidature(id: string): Promise<CandidatureInterface> {
-   const response = await fetch(`${this.baseURL}/detail/${id}/`, {
+   const response = await fetch(`${this.baseURL}/candidatures/${id}/`, {
      headers: this.obtenirEntetes()
    })
 
@@ -88,7 +78,7 @@ class ServiceCandidatures {
  }
 
  async modifierCandidature(id: string, donnees: Partial<CandidatureInterface>): Promise<CandidatureInterface> {
-   const response = await fetch(`${this.baseURL}/detail/${id}/`, {
+   const response = await fetch(`${this.baseURL}/candidatures/${id}/`, {
      method: 'PATCH',
      headers: this.obtenirEntetes(),
      body: JSON.stringify(donnees)
@@ -102,7 +92,7 @@ class ServiceCandidatures {
  }
 
  async obtenirMesEntretiens(): Promise<EntretienInterface[]> {
-   const response = await fetch(`${this.baseURL}/mes-entretiens/`, {
+   const response = await fetch(`${this.baseURL}/entretiens/`, {
      headers: this.obtenirEntetes()
    })
 
@@ -110,11 +100,12 @@ class ServiceCandidatures {
      throw new Error('Erreur lors du chargement des entretiens')
    }
 
-   return await response.json()
+   const data = await response.json()
+   return data.results || data
  }
 
  async obtenirNotifications(): Promise<NotificationCandidatureInterface[]> {
-   const response = await fetch(`${this.baseURL}/notifications/`, {
+   const response = await fetch(`${API_BASE_URL}/notifications/notifications/mes-notifications/`, {
      headers: this.obtenirEntetes()
    })
 
@@ -127,7 +118,7 @@ class ServiceCandidatures {
  }
 
  async obtenirStatistiques(): Promise<StatistiquesCandidaturesInterface> {
-   const response = await fetch(`${this.baseURL}/statistiques/`, {
+   const response = await fetch(`${this.baseURL}/statistiques/candidat/`, {
      headers: this.obtenirEntetes()
    })
 
@@ -139,7 +130,7 @@ class ServiceCandidatures {
  }
 
  async marquerFavoris(candidatureId: string, estFavoris: boolean): Promise<void> {
-   await fetch(`${this.baseURL}/detail/${candidatureId}/`, {
+   await fetch(`${this.baseURL}/candidatures/${candidatureId}/`, {
      method: 'PATCH',
      headers: this.obtenirEntetes(),
      body: JSON.stringify({ est_favorite_jeune: estFavoris })

@@ -6,77 +6,121 @@ class ServiceAuth {
   private baseURL = `${API_BASE_URL}/auth`
 
   async connexion(donnees: ConnexionInterface): Promise<ReponseAuth> {
-    const response = await fetch(`${this.baseURL}/connexion/`, {
+    const response = await fetch(`${this.baseURL}/login/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(donnees),
+      body: JSON.stringify({
+        email: donnees.email,
+        password: donnees.motDePasse
+      }),
     })
 
     if (!response.ok) {
       const erreur = await response.json()
-      throw new Error(erreur.message || 'Erreur de connexion')
+      throw new Error(erreur.error || 'Erreur de connexion')
     }
 
     const donnéesReponse = await response.json()
     
-    // Stockage des tokens
     if (typeof window !== 'undefined') {
-      localStorage.setItem('access_token', donnéesReponse.access)
-      localStorage.setItem('refresh_token', donnéesReponse.refresh)
-      localStorage.setItem('utilisateur', JSON.stringify(donnéesReponse.utilisateur))
+      localStorage.setItem('access_token', donnéesReponse.tokens.access)
+      localStorage.setItem('refresh_token', donnéesReponse.tokens.refresh)
+      localStorage.setItem('utilisateur', JSON.stringify(donnéesReponse.user))
     }
 
-    return donnéesReponse
+    return {
+      access: donnéesReponse.tokens.access,
+      refresh: donnéesReponse.tokens.refresh,
+      utilisateur: donnéesReponse.user,
+      message: donnéesReponse.message
+    }
   }
 
   async inscriptionJeune(donnees: InscriptionJeuneInterface): Promise<ReponseAuth> {
-    const formData = new FormData()
-    
-    // Ajout des données texte
-    Object.entries(donnees).forEach(([cle, valeur]) => {
-      if (cle !== 'pieceIdentite' && cle !== 'cv' && valeur !== null) {
-        formData.append(cle, valeur.toString())
-      }
-    })
+    console.log('🔍 Données reçues:', donnees);
 
-    // Ajout des fichiers
-    if (donnees.pieceIdentite) {
-      formData.append('pieceIdentite', donnees.pieceIdentite)
-    }
-    if (donnees.cv) {
-      formData.append('cv', donnees.cv)
-    }
+    // ENVOYER SEULEMENT LES CHAMPS ATTENDUS PAR LE BACKEND !
+    const donneesBackend = {
+      first_name: donnees.prenom,
+      last_name: donnees.nom,
+      email: donnees.email,
+      phone_number: donnees.telephone,
+      password: donnees.motDePasse,
+      password_confirm: donnees.confirmationMotDePasse,
+      user_type: 'jeune',
+      date_of_birth: donnees.dateNaissance
+    };
 
-    const response = await fetch(`${this.baseURL}/inscription/jeune/`, {
-      method: 'POST',
-      body: formData,
-    })
+    console.log('🔍 Données envoyées au backend:', donneesBackend);
 
-    if (!response.ok) {
-      const erreur = await response.json()
-      throw new Error(erreur.message || 'Erreur d\'inscription')
-    }
-
-    return await response.json()
-  }
-
-  async inscriptionEntreprise(donnees: InscriptionEntrepriseInterface): Promise<ReponseAuth> {
-    const response = await fetch(`${this.baseURL}/inscription/entreprise/`, {
+    const response = await fetch(`${API_BASE_URL}/users/register/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(donnees),
+      body: JSON.stringify(donneesBackend),
+    })
+
+    console.log('🔍 Response status:', response.status)
+    console.log('🔍 Response ok:', response.ok)
+
+    const responseText = await response.text()
+    console.log('🔍 RÉPONSE BRUTE:', responseText)
+
+    let data
+    try {
+      data = JSON.parse(responseText)
+    } catch (e) {
+      console.log('🚨 ERREUR PARSING JSON:', e.message)
+      throw new Error('Réponse invalide du serveur')
+    }
+
+    if (!response.ok) {
+      console.log('🚨 Erreur backend:', data)
+      throw new Error(data.message || Object.values(data)[0] || 'Erreur d\'inscription')
+    }
+
+    console.log('✅ Réponse backend:', data)
+    
+    return {
+      access: '',
+      refresh: '',
+      utilisateur: data,
+      message: data.message || 'Inscription réussie'
+    }
+  }
+
+  async inscriptionEntreprise(donnees: InscriptionEntrepriseInterface): Promise<ReponseAuth> {
+    const response = await fetch(`${API_BASE_URL}/users/register/`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        first_name: donnees.nomEntreprise,
+        last_name: 'Entreprise',
+        email: donnees.emailContact,
+        phone_number: donnees.telephoneContact,
+        password: donnees.motDePasse,
+        password_confirm: donnees.confirmationMotDePasse,
+        user_type: 'entreprise'
+      }),
     })
 
     if (!response.ok) {
       const erreur = await response.json()
-      throw new Error(erreur.message || 'Erreur d\'inscription')
+      throw new Error(erreur.message || Object.values(erreur)[0] || 'Erreur d\'inscription')
     }
 
-    return await response.json()
+    const data = await response.json()
+    return {
+      access: '',
+      refresh: '',
+      utilisateur: data,
+      message: data.message
+    }
   }
 
   async deconnexion(): Promise<void> {
@@ -94,7 +138,7 @@ class ServiceAuth {
       throw new Error('Token de rafraîchissement non trouvé')
     }
 
-    const response = await fetch(`${this.baseURL}/token/rafraichir/`, {
+    const response = await fetch(`${this.baseURL}/token/refresh/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

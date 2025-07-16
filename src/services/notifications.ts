@@ -39,7 +39,7 @@ class ServiceNotifications {
      })
    }
 
-   const response = await fetch(`${this.baseURL}/mes-notifications/?${params}`, {
+   const response = await fetch(`${this.baseURL}/notifications/mes-notifications/?${params}`, {
      headers: this.obtenirEntetes()
    })
 
@@ -52,7 +52,7 @@ class ServiceNotifications {
  }
 
  async obtenirDetailNotification(id: string): Promise<NotificationInterface> {
-   const response = await fetch(`${this.baseURL}/detail/${id}/`, {
+   const response = await fetch(`${this.baseURL}/notifications/${id}/`, {
      headers: this.obtenirEntetes()
    })
 
@@ -64,7 +64,7 @@ class ServiceNotifications {
  }
 
  async marquerNotificationLue(id: string): Promise<NotificationInterface> {
-   const response = await fetch(`${this.baseURL}/${id}/marquer-lue/`, {
+   const response = await fetch(`${this.baseURL}/notifications/${id}/marquer-lu/`, {
      method: 'POST',
      headers: this.obtenirEntetes()
    })
@@ -78,7 +78,7 @@ class ServiceNotifications {
  }
 
  async marquerToutesLues(): Promise<{ message: string }> {
-   const response = await fetch(`${this.baseURL}/marquer-toutes-lues/`, {
+   const response = await fetch(`${this.baseURL}/notifications/marquer-toutes-lues/`, {
      method: 'POST',
      headers: this.obtenirEntetes()
    })
@@ -99,11 +99,12 @@ class ServiceNotifications {
      throw new Error('Erreur lors du chargement des types')
    }
 
-   return await response.json()
+   const data = await response.json()
+   return data.results || data
  }
 
  async obtenirMesPreferences(): Promise<PreferenceNotificationInterface[]> {
-   const response = await fetch(`${this.baseURL}/preferences/`, {
+   const response = await fetch(`${this.baseURL}/preferences/mes-preferences/`, {
      headers: this.obtenirEntetes()
    })
 
@@ -145,7 +146,7 @@ class ServiceNotifications {
  }
 
  async creerNotification(donnees: CreerNotificationInterface): Promise<NotificationInterface> {
-   const response = await fetch(`${this.baseURL}/creer/`, {
+   const response = await fetch(`${this.baseURL}/envoyer/`, {
      method: 'POST',
      headers: this.obtenirEntetes(),
      body: JSON.stringify(donnees)
@@ -168,7 +169,8 @@ class ServiceNotifications {
      throw new Error('Erreur lors du chargement des statistiques')
    }
 
-   return await response.json()
+   const data = await response.json()
+   return data.results || data
  }
 
  async testerNotification(canal: 'email' | 'sms' | 'push'): Promise<{
@@ -176,7 +178,7 @@ class ServiceNotifications {
    reussi: boolean
    notificationId: string
  }> {
-   const response = await fetch(`${this.baseURL}/tester/`, {
+   const response = await fetch(`${this.baseURL}/configurations/tester/`, {
      method: 'POST',
      headers: this.obtenirEntetes(),
      body: JSON.stringify({ canal })
@@ -189,13 +191,19 @@ class ServiceNotifications {
    return await response.json()
  }
 
- // Méthodes utilitaires
  async compterNotificationsNonLues(): Promise<number> {
-   const notifications = await this.obtenirMesNotifications({ nonLues: true })
-   return notifications.length
+   const response = await fetch(`${this.baseURL}/notifications/non-lues/`, {
+     headers: this.obtenirEntetes()
+   })
+   
+   if (!response.ok) {
+     return 0
+   }
+   
+   const data = await response.json()
+   return data.count || 0
  }
 
- // Polling pour les notifications en temps réel
  demarrerPolling(callback: (notifications: NotificationInterface[]) => void, intervalMs = 30000) {
    const poll = async () => {
      try {
@@ -206,10 +214,7 @@ class ServiceNotifications {
      }
    }
 
-   // Poll initial
    poll()
-
-   // Poll périodique
    const interval = setInterval(poll, intervalMs)
    
    return () => clearInterval(interval)

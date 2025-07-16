@@ -1,6 +1,14 @@
 'use client'
 
+import { serviceAuth } from '@/services/auth'
+import { useState, useRef } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+
 export default function PageAccueil() {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const formRef = useRef<HTMLFormElement>(null)
+
   return (
     <>
       <header>
@@ -81,42 +89,10 @@ export default function PageAccueil() {
             </p>
           </div>
 
-          <form className="contact-form" onSubmit={(e) => handleSubmit(e)}>
-            <div className="form-group">
-              <label htmlFor="profil">Votre profil :</label>
-              <select id="profil" name="profil" required>
-                <option value="">Sélectionne ton profil</option>
-                <option value="jeune_diplome">Jeune diplômé 🎓</option>
-                <option value="formation_pro">Formation professionnelle 👷</option>
-                <option value="sans_qualification">Sans qualification formelle 📚</option>
-                <option value="reconversion">En reconversion 🔄</option>
-                <option value="entreprise">Entreprise partenaire 🏢</option>
-                <option value="institution">Institution publique 🏛️</option>
-              </select>
-            </div>
-
+          <form ref={formRef} className="contact-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="nom">Nom complet *</label>
               <input type="text" id="nom" name="nom" required />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="sexe">Sexe *</label>
-              <select id="sexe" name="sexe" required>
-                <option value="">Sélectionne ton sexe</option>
-                <option value="masculin">Masculin</option>
-                <option value="feminin">Féminin</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="dateNaissance">Date de naissance *</label>
-              <input type="date" id="dateNaissance" name="dateNaissance" required />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="lieuNaissance">Lieu de naissance *</label>
-              <input type="text" id="lieuNaissance" name="lieuNaissance" required placeholder="Ville/Commune de naissance" />
             </div>
 
             <div className="form-group">
@@ -126,83 +102,34 @@ export default function PageAccueil() {
 
             <div className="form-group">
               <label htmlFor="telephone">Téléphone *</label>
-              <input type="tel" id="telephone" name="telephone" required />
+              <input type="tel" id="telephone" name="telephone" required placeholder="622123456 (format guinéen)" />
             </div>
 
             <div className="form-group">
               <label htmlFor="password">Mot de passe *</label>
-              <input type="password" id="password" name="password" required minLength={6} placeholder="Minimum 6 caractères" />
-              <small style={{color: 'var(--text-gray)', fontSize: '0.9rem'}}>Le mot de passe doit contenir au moins 6 caractères</small>
+              <input type="password" id="password" name="password" required minLength={6} />
             </div>
 
             <div className="form-group">
               <label htmlFor="confirmPassword">Confirmer le mot de passe *</label>
-              <input type="password" id="confirmPassword" name="confirmPassword" required minLength={6} placeholder="Ressaisir le mot de passe" />
-              <small id="passwordError" style={{color: 'var(--guinea-red)', fontSize: '0.9rem', display: 'none'}}>Les mots de passe ne correspondent pas</small>
+              <input type="password" id="confirmPassword" name="confirmPassword" required minLength={6} />
+              <small id="passwordError" style={{color: 'red', display: 'none'}}>Les mots de passe ne correspondent pas</small>
             </div>
 
             <div className="form-group">
-              <label htmlFor="region">Région *</label>
-              <select id="region" name="region" required>
-                <option value="">Sélectionne ta région</option>
-                <option value="conakry">Conakry</option>
-                <option value="kindia">Kindia</option>
-                <option value="boke">Boké</option>
-                <option value="mamou">Mamou</option>
-                <option value="labe">Labé</option>
-                <option value="faranah">Faranah</option>
-                <option value="kankan">Kankan</option>
-                <option value="nzerekore">N'Zérékoré</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="formation">Formation/Expérience</label>
-              <textarea id="formation" name="formation" rows={3} placeholder="Décris brièvement ta formation et/ou ton expérience professionnelle"></textarea>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="secteur">Secteur d'intérêt</label>
-              <select id="secteur" name="secteur">
-                <option value="">Choisis un secteur</option>
-                <option value="btp">BTP & Construction</option>
-                <option value="maintenance">Maintenance industrielle</option>
-                <option value="logistique">Logistique & Transport</option>
-                <option value="numerique">Services numériques</option>
-                <option value="agro">Agro-industrie</option>
-                <option value="administration">Administration publique</option>
-                <option value="education">Éducation</option>
-                <option value="sante">Santé</option>
-                <option value="autre">Autre</option>
-              </select>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="message">Message (optionnel)</label>
-              <textarea id="message" name="message" rows={4} placeholder="Questions ou informations complémentaires..."></textarea>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="cv">CV (optionnel)</label>
-              <input type="file" id="cv" name="cv" accept=".pdf,.doc,.docx" style={{width: '100%', padding: '0.8rem', border: '2px solid #eee', borderRadius: '10px'}} />
-              <small style={{color: 'var(--text-gray)', fontSize: '0.9rem'}}>Formats acceptés : PDF, Word (max 5MB)</small>
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="pieceIdentite">Pièce d'identité *</label>
-              <input type="file" id="pieceIdentite" name="pieceIdentite" accept=".pdf,.jpg,.jpeg,.png" required style={{width: '100%', padding: '0.8rem', border: '2px solid #eee', borderRadius: '10px'}} />
-              <small style={{color: 'var(--text-gray)', fontSize: '0.9rem'}}>CNI, Passeport ou Carte d'étudiant (PDF, JPG, PNG - max 3MB)</small>
+              <label htmlFor="dateNaissance">Date de naissance *</label>
+              <input type="date" id="dateNaissance" name="dateNaissance" required />
             </div>
 
             <div className="form-group">
               <label style={{display: 'flex', alignItems: 'center', cursor: 'pointer'}}>
-                <input type="checkbox" id="conditions" name="conditions" required style={{marginRight: '0.5rem', transform: 'scale(1.2)'}} />
-                <span>J'accepte les <strong>conditions d'utilisation</strong> et la <strong>politique de confidentialité</strong> du Projet Insertion des Jeunes Simandou 2040 *</span>
+                <input type="checkbox" name="conditions" required />
+                <span style={{marginLeft: '0.5rem'}}>J'accepte les conditions d'utilisation *</span>
               </label>
             </div>
 
-            <button type="submit" className="cta-button" style={{width: '100%'}}>
-              Rejoindre Simandou 2040 ! 🚀
+            <button type="submit" disabled={isSubmitting} className="cta-button" style={{width: '100%'}}>
+              {isSubmitting ? 'Inscription en cours...' : 'Rejoindre Simandou 2040 ! 🚀'}
             </button>
           </form>
         </div>
@@ -694,67 +621,89 @@ export default function PageAccueil() {
       </footer>
     </>
   )
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    
+    setIsSubmitting(true)
+
+    const formData = new FormData(event.currentTarget)
+    const password = formData.get('password') as string
+    const confirmPassword = formData.get('confirmPassword') as string
+    const telephone = formData.get('telephone') as string
+    
+    // Validation password
+    if (password !== confirmPassword) {
+      alert('❌ Les mots de passe ne correspondent pas')
+      setIsSubmitting(false)
+      return
+    }
+    
+    // Validation téléphone guinéen  
+    let cleanPhone = telephone.replace(/[\s\-\+]/g, '')
+    if (cleanPhone.startsWith('224')) cleanPhone = cleanPhone.substring(3)
+    if (!/^6\d{8}$/.test(cleanPhone)) {
+      alert('❌ Téléphone invalide ! Format: 622123456')
+      setIsSubmitting(false)
+      return
+    }
+
+    const button = event.currentTarget.querySelector('button[type="submit"]') as HTMLButtonElement
+    button.textContent = 'Inscription...'
+    button.disabled = true
+
+    try {
+      // APPEL API SIMPLE
+      const response = await fetch('http://localhost:8000/api/v1/users/register/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          first_name: (formData.get('nom') as string).split(' ')[0],
+          last_name: (formData.get('nom') as string).split(' ').slice(1).join(' ') || 'User',
+          email: formData.get('email'),
+          phone_number: cleanPhone,
+          password: password,
+          password_confirm: confirmPassword,
+          user_type: 'jeune',
+          date_of_birth: formData.get('dateNaissance')
+        })
+      })
+
+      const text = await response.text()
+      
+      // SI HTML = ERREUR SERVEUR
+      if (text.includes('<!DOCTYPE') || text.includes('<html')) {
+        alert('❌ ERREUR: Le serveur Django ne répond pas. Redémarrez le backend !')
+        setIsSubmitting(false)
+        return
+      }
+
+      const data = JSON.parse(text)
+
+      if (response.ok) {
+        alert('✅ INSCRIPTION RÉUSSIE ! Vérifiez votre base de données.')
+        if (formRef.current) {
+          formRef.current.reset()
+        }
+      } else {
+        alert('❌ ERREUR: ' + (data.phone_number?.[0] || data.email?.[0] || 'Erreur inconnue'))
+      }
+
+    } catch (error: any) {
+      alert('❌ ERREUR: ' + error.message)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 }
 
-// Fonctions JavaScript converties en TypeScript
+// Fonctions utilitaires déplacées ici
 function toggleMobileMenu() {
-  const mobileNav = document.getElementById('mobileNav');
-  mobileNav?.classList.toggle('active');
+  const mobileNav = document.getElementById('mobileNav')
+  mobileNav?.classList.toggle('active')
 }
 
 function closeMobileMenu() {
-  const mobileNav = document.getElementById('mobileNav');
-  mobileNav?.classList.remove('active');
-}
-
-function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-  event.preventDefault();
-  
-  // Validation des mots de passe
-  const password = (document.getElementById('password') as HTMLInputElement).value;
-  const confirmPassword = (document.getElementById('confirmPassword') as HTMLInputElement).value;
-  const passwordError = document.getElementById('passwordError');
-  
-  if (password !== confirmPassword) {
-    if (passwordError) passwordError.style.display = 'block';
-    (document.getElementById('confirmPassword') as HTMLInputElement).style.borderColor = 'var(--guinea-red)';
-    return false;
-  } else {
-    if (passwordError) passwordError.style.display = 'none';
-    (document.getElementById('confirmPassword') as HTMLInputElement).style.borderColor = 'var(--guinea-green)';
-  }
-  
-  if (password.length < 6) {
-    alert('Le mot de passe doit contenir au moins 6 caractères');
-    return false;
-  }
-  
-  const formData = new FormData(event.currentTarget);
-  const data: Record<string, any> = {};
-  
-  for (const [key, value] of formData.entries()) {
-    // Ne pas inclure le mot de passe de confirmation dans les données finales
-    if (key !== 'confirmPassword') {
-      data[key] = value;
-    }
-  }
-  
-  // Animation de succès
-  const button = event.currentTarget.querySelector('button[type="submit"]') as HTMLButtonElement;
-  const originalText = button.textContent;
-  
-  button.textContent = 'Inscription réussie ! Nous vous contacterons bientôt ✅';
-  button.style.background = 'var(--guinea-green)';
-  
-  setTimeout(() => {
-    button.textContent = originalText;
-    button.style.background = 'var(--guinea-red)';
-    event.currentTarget.reset();
-    if (passwordError) passwordError.style.display = 'none';
-  }, 4000);
-  
-  console.log('Données du formulaire Simandou 2040:', data);
-  
-  // Ici on pourrait envoyer les données vers le backend
-  alert('Merci pour votre inscription au Programme Simandou 2040 ! Votre compte a été créé avec succès. Notre équipe vous contactera dans les plus brefs délais.');
+  const mobileNav = document.getElementById('mobileNav')
+  mobileNav?.classList.remove('active')
 }
