@@ -830,3 +830,66 @@ export default function LayoutDashboardJeune({
     </div>
   )
 }
+
+interface LayoutDashboardJeuneProps {
+  children: React.ReactNode;
+}
+
+export default function LayoutDashboardJeune({ children }: LayoutDashboardJeuneProps) {
+  const router = useNextRouter();
+
+  return (
+    <AppProvider
+      navigation={navigationJeune}
+      router={router}
+      theme={projectTheme}
+      branding={{
+        title: 'PIJ - Simandou 2040',
+        logo: (
+          <div style={{ 
+            width: 48, 
+            height: 48, 
+            background: 'linear-gradient(45deg, var(--guinea-red), var(--guinea-green))',
+            borderRadius: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'white',
+            fontWeight: 'bold',
+            fontSize: '14px'
+          }}>
+            PIJ
+          </div>
+        ),
+      }}
+    >
+      <DashboardLayout
+        slots={{
+          toolbarAccount: () => (
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '12px',
+              padding: '8px 16px',
+              backgroundColor: '#f3f4f6',
+              borderRadius: '8px',
+              margin: '8px'
+            }}>
+              <div style={{
+                width: 8,
+                height: 8,
+                backgroundColor: '#16a34a',
+                borderRadius: '50%'
+              }} />
+              <span style={{ fontSize: '14px', color: '#374151' }}>
+                Profil à 75% complété
+              </span>
+            </div>
+          ),
+        }}
+      >
+        {children}
+      </DashboardLayout>
+    </AppProvider>
+  );
+}
