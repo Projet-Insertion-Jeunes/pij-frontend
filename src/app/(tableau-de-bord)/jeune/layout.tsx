@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import '../../../styles/profile-management.css'
 import ExperienceManager from '../../../composants/profile/ExperienceManager'
 import FormationHistory from '../../../composants/profile/FormationHistory'
+import JobSearch from '../../../composants/emploi/JobSearch'
 import { Formation } from '../../../types/formations'
 
 export default function LayoutDashboardJeune({
@@ -13,6 +14,7 @@ export default function LayoutDashboardJeune({
 }: {
   children: React.ReactNode
 }) {
+  const [currentPage, setCurrentPage] = useState('profile') // 'profile' | 'job-search'
   const [activeTab, setActiveTab] = useState('personal')
   const [skills, setSkills] = useState([
     'Maçonnerie', 'Coffrage', 'Soudure', 'Électricité de base'
@@ -232,8 +234,22 @@ export default function LayoutDashboardJeune({
         
         <ul className="nav-menu">
           <li><Link href="#"><span className="icon">📊</span> Tableau de bord</Link></li>
-          <li><Link href="#" className="active"><span className="icon">👤</span> Mon profil</Link></li>
-          <li><Link href="#"><span className="icon">🔍</span> Rechercher des offres</Link></li>
+          <li>
+            <button 
+              onClick={() => setCurrentPage('profile')}
+              className={currentPage === 'profile' ? 'active' : ''}
+            >
+              <span className="icon">👤</span> Mon profil
+            </button>
+          </li>
+          <li>
+            <button 
+              onClick={() => setCurrentPage('job-search')}
+              className={currentPage === 'job-search' ? 'active' : ''}
+            >
+              <span className="icon">🔍</span> Rechercher des offres
+            </button>
+          </li>
           <li><Link href="#"><span className="icon">📝</span> Mes candidatures</Link></li>
           <li><Link href="#"><span className="icon">🎓</span> Mon parcours</Link></li>
           <li><Link href="#"><span className="icon">⭐</span> Mes évaluations</Link></li>
@@ -250,50 +266,53 @@ export default function LayoutDashboardJeune({
       
       {/* Contenu principal */}
       <div className="main-content">
-        <div className="top-bar">
-          <div className="page-title">
-            <h1>👤 Mon Profil</h1>
-            <div className="breadcrumb">
-              🏠 Accueil › 👤 Mon profil › ✏️ Modifier
-            </div>
-          </div>
-          <div className="profile-completion">
-            <div className="completion-circle">
-              <svg width="50" height="50">
-                <circle cx="25" cy="25" r="20" fill="none" stroke="#e1e1e1" strokeWidth="4"></circle>
-                <circle 
-                  cx="25" 
-                  cy="25" 
-                  r="20" 
-                  fill="none" 
-                  stroke="#009460" 
-                  strokeWidth="4"
-                  strokeDasharray="126" 
-                  strokeDashoffset={126 - (profileCompletion / 100) * 126}
-                  transform="rotate(-90 25 25)"
-                ></circle>
-              </svg>
-              <div style={{
-                position: 'absolute', 
-                top: '50%', 
-                left: '50%', 
-                transform: 'translate(-50%, -50%)', 
-                fontWeight: 600, 
-                fontSize: '0.9rem'
-              }}>
-                {profileCompletion}%
+        {currentPage === 'profile' && (
+          <div className="top-bar">
+            <div className="page-title">
+              <h1>👤 Mon Profil</h1>
+              <div className="breadcrumb">
+                🏠 Accueil › 👤 Mon profil › ✏️ Modifier
               </div>
             </div>
-            <div>
-              <strong>Profil à {profileCompletion}% complété</strong>
-              <p style={{fontSize: '0.9rem', color: '#666', margin: 0}}>
-                Ajoutez votre CV et vos compétences pour améliorer votre visibilité
-              </p>
+            <div className="profile-completion">
+              <div className="completion-circle">
+                <svg width="50" height="50">
+                  <circle cx="25" cy="25" r="20" fill="none" stroke="#e1e1e1" strokeWidth="4"></circle>
+                  <circle 
+                    cx="25" 
+                    cy="25" 
+                    r="20" 
+                    fill="none" 
+                    stroke="#009460" 
+                    strokeWidth="4"
+                    strokeDasharray="126" 
+                    strokeDashoffset={126 - (profileCompletion / 100) * 126}
+                    transform="rotate(-90 25 25)"
+                  ></circle>
+                </svg>
+                <div style={{
+                  position: 'absolute', 
+                  top: '50%', 
+                  left: '50%', 
+                  transform: 'translate(-50%, -50%)', 
+                  fontWeight: 600, 
+                  fontSize: '0.9rem'
+                }}>
+                  {profileCompletion}%
+                </div>
+              </div>
+              <div>
+                <strong>Profil à {profileCompletion}% complété</strong>
+                <p style={{fontSize: '0.9rem', color: '#666', margin: 0}}>
+                  Ajoutez votre CV et vos compétences pour améliorer votre visibilité
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        )}
         
-        <div className="profile-grid">
+        {currentPage === 'profile' && (
+          <div className="profile-grid">
           {/* Sidebar du profil */}
           <div className="profile-sidebar">
             {/* Photo et stats */}
@@ -764,35 +783,41 @@ export default function LayoutDashboardJeune({
             </div>
           </div>
         </div>
+        )}
+
+        {/* Page de recherche d'offres */}
+        {currentPage === 'job-search' && (
+          <JobSearch />
+        )}
+
+        {/* Indicateur de sauvegarde */}
+        <div className={`save-indicator ${showSaveIndicator ? 'show' : ''}`}>
+          <span>💾</span>
+          <span>Modifications sauvegardées automatiquement</span>
+        </div>
+        
+        {/* Bouton menu mobile */}
+        <button 
+          className="mobile-menu-btn"
+          onClick={toggleSidebar}
+          style={{
+            position: 'fixed',
+            top: '20px',
+            left: '20px',
+            zIndex: 1002,
+            background: '#CE1126',
+            color: 'white',
+            border: 'none',
+            padding: '10px',
+            borderRadius: '6px',
+            fontSize: '1.2rem',
+            cursor: 'pointer',
+            display: 'none'
+          }}
+        >
+          ☰
+        </button>
       </div>
-      
-      {/* Indicateur de sauvegarde */}
-      <div className={`save-indicator ${showSaveIndicator ? 'show' : ''}`}>
-        <span>💾</span>
-        <span>Modifications sauvegardées automatiquement</span>
-      </div>
-      
-      {/* Bouton menu mobile */}
-      <button 
-        className="mobile-menu-btn"
-        onClick={toggleSidebar}
-        style={{
-          position: 'fixed',
-          top: '20px',
-          left: '20px',
-          zIndex: 1002,
-          background: '#CE1126',
-          color: 'white',
-          border: 'none',
-          padding: '10px',
-          borderRadius: '6px',
-          fontSize: '1.2rem',
-          cursor: 'pointer',
-          display: 'none'
-        }}
-      >
-        ☰
-      </button>
       
       {children}
     </div>
