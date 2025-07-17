@@ -13,7 +13,6 @@ export default function LayoutDashboardJeune({
 }: {
   children: React.ReactNode
 }) {
-  const router = useRouter()
   const [activeTab, setActiveTab] = useState('personal')
   const [skills, setSkills] = useState([
     'Maçonnerie', 'Coffrage', 'Soudure', 'Électricité de base'
@@ -93,6 +92,7 @@ export default function LayoutDashboardJeune({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
   const [showSaveIndicator, setShowSaveIndicator] = useState(false)
 
+  const router = useRouter()
   const skillInputRef = useRef<HTMLInputElement>(null)
   const softSkillInputRef = useRef<HTMLInputElement>(null)
 
@@ -187,14 +187,9 @@ export default function LayoutDashboardJeune({
 
   // Fonction pour gérer la déconnexion
   const handleLogout = () => {
-    // Supprimer les tokens d'authentification du localStorage
-    localStorage.removeItem('authToken')
-    localStorage.removeItem('refreshToken')
-    localStorage.removeItem('userProfile')
-    
-    // Supprimer les cookies d'authentification si nécessaire
-    document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
-    document.cookie = 'refreshToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
+    // Nettoyer les données de session/localStorage si nécessaire
+    localStorage.clear()
+    sessionStorage.clear()
     
     // Rediriger vers la page d'accueil
     router.push('/')
@@ -246,34 +241,7 @@ export default function LayoutDashboardJeune({
           <li><Link href="#"><span className="icon">💬</span> Messages</Link></li>
           <li><Link href="#"><span className="icon">⚙️</span> Paramètres</Link></li>
           <li>
-            <button 
-              onClick={handleLogout}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '12px',
-                padding: '15px 25px',
-                color: 'white',
-                backgroundColor: 'transparent',
-                border: 'none',
-                cursor: 'pointer',
-                fontSize: '0.95rem',
-                borderLeft: '4px solid transparent',
-                transition: 'all 0.3s ease',
-                width: '100%',
-                textAlign: 'left'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'rgba(255,255,255,0.1)'
-                e.currentTarget.style.borderLeftColor = '#FCD116'
-                e.currentTarget.style.backdropFilter = 'blur(10px)'
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = 'transparent'
-                e.currentTarget.style.borderLeftColor = 'transparent'
-                e.currentTarget.style.backdropFilter = 'none'
-              }}
-            >
+            <button onClick={handleLogout} className="logout-btn">
               <span className="icon">🚪</span> Déconnexion
             </button>
           </li>
@@ -829,67 +797,4 @@ export default function LayoutDashboardJeune({
       {children}
     </div>
   )
-}
-
-interface LayoutDashboardJeuneProps {
-  children: React.ReactNode;
-}
-
-export default function LayoutDashboardJeune({ children }: LayoutDashboardJeuneProps) {
-  const router = useNextRouter();
-
-  return (
-    <AppProvider
-      navigation={navigationJeune}
-      router={router}
-      theme={projectTheme}
-      branding={{
-        title: 'PIJ - Simandou 2040',
-        logo: (
-          <div style={{ 
-            width: 48, 
-            height: 48, 
-            background: 'linear-gradient(45deg, var(--guinea-red), var(--guinea-green))',
-            borderRadius: '8px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            color: 'white',
-            fontWeight: 'bold',
-            fontSize: '14px'
-          }}>
-            PIJ
-          </div>
-        ),
-      }}
-    >
-      <DashboardLayout
-        slots={{
-          toolbarAccount: () => (
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: '12px',
-              padding: '8px 16px',
-              backgroundColor: '#f3f4f6',
-              borderRadius: '8px',
-              margin: '8px'
-            }}>
-              <div style={{
-                width: 8,
-                height: 8,
-                backgroundColor: '#16a34a',
-                borderRadius: '50%'
-              }} />
-              <span style={{ fontSize: '14px', color: '#374151' }}>
-                Profil à 75% complété
-              </span>
-            </div>
-          ),
-        }}
-      >
-        {children}
-      </DashboardLayout>
-    </AppProvider>
-  );
 }

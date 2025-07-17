@@ -140,6 +140,29 @@ body {
     text-align: center;
 }
 
+.nav-menu .logout-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 15px 25px;
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+    border-left: 4px solid transparent;
+    width: 100%;
+    text-align: left;
+    font-family: inherit;
+}
+
+.nav-menu .logout-btn:hover {
+    background: rgba(255,255,255,0.1);
+    border-left-color: #FCD116;
+    backdrop-filter: blur(10px);
+}
+
 .main-content {
     flex: 1;
     margin-left: 280px;
