@@ -4,10 +4,12 @@ import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import '../../../styles/profile-management.css'
+import '../../../styles/dashboard-jeune.css'
 import ExperienceManager from '../../../composants/profile/ExperienceManager'
 import FormationHistory from '../../../composants/profile/FormationHistory'
 import JobSearch from '../../../composants/emploi/JobSearch'
 import MonParcours from '../../../composants/parcours/MonParcours'
+import TableauDeBordJeune from '../../../composants/dashboard/TableauDeBordJeune'
 import { Formation } from '../../../types/formations'
 
 export default function LayoutDashboardJeune({
@@ -15,7 +17,7 @@ export default function LayoutDashboardJeune({
 }: {
   children: React.ReactNode
 }) {
-  const [currentPage, setCurrentPage] = useState('profile') // 'profile' | 'job-search' | 'parcours'
+  const [currentPage, setCurrentPage] = useState('dashboard') // 'dashboard' | 'profile' | 'job-search' | 'parcours'
   const [activeTab, setActiveTab] = useState('personal')
   const [skills, setSkills] = useState([
     'Maçonnerie', 'Coffrage', 'Soudure', 'Électricité de base'
@@ -234,7 +236,14 @@ export default function LayoutDashboardJeune({
         </div>
         
         <ul className="nav-menu">
-          <li><Link href="#"><span className="icon">📊</span> Tableau de bord</Link></li>
+          <li>
+            <button 
+              onClick={() => setCurrentPage('dashboard')}
+              className={currentPage === 'dashboard' ? 'active' : ''}
+            >
+              <span className="icon">📊</span> Tableau de bord
+            </button>
+          </li>
           <li>
             <button 
               onClick={() => setCurrentPage('profile')}
@@ -274,6 +283,10 @@ export default function LayoutDashboardJeune({
       
       {/* Contenu principal */}
       <div className="main-content">
+        {currentPage === 'dashboard' && (
+          <TableauDeBordJeune />
+        )}
+        
         {currentPage === 'profile' && (
           <div className="top-bar">
             <div className="page-title">
