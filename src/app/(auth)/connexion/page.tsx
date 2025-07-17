@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { serviceAuth } from '@/services/auth'
 import { ConnexionInterface } from '@/types/auth'
+import '@/styles/auth.css'
 
 export default function PageConnexion() {
   const router = useRouter()

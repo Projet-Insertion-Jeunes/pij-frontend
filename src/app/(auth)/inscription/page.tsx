@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { FormulaireInscriptionJeune } from '@/composants/formulaires/FormulaireInscriptionJeune'
 import { FormulaireInscriptionEntreprise } from '@/composants/formulaires/FormulaireInscriptionEntreprise'
+import '@/styles/auth.css'
 
 type TypeInscription = 'jeune' | 'entreprise'
 
