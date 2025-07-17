@@ -5,11 +5,13 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import '../../../styles/profile-management.css'
 import '../../../styles/dashboard-jeune.css'
+import '../../../styles/candidatures.css'
 import ExperienceManager from '../../../composants/profile/ExperienceManager'
 import FormationHistory from '../../../composants/profile/FormationHistory'
 import JobSearch from '../../../composants/emploi/JobSearch'
 import MonParcours from '../../../composants/parcours/MonParcours'
 import TableauDeBordJeune from '../../../composants/dashboard/TableauDeBordJeune'
+import MesCandidatures from '../../../composants/candidatures/MesCandidatures'
 import { Formation } from '../../../types/formations'
 
 export default function LayoutDashboardJeune({
@@ -17,7 +19,7 @@ export default function LayoutDashboardJeune({
 }: {
   children: React.ReactNode
 }) {
-  const [currentPage, setCurrentPage] = useState('dashboard') // 'dashboard' | 'profile' | 'job-search' | 'parcours'
+  const [currentPage, setCurrentPage] = useState('dashboard') // 'dashboard' | 'profile' | 'job-search' | 'parcours' | 'candidatures'
   const [activeTab, setActiveTab] = useState('personal')
   const [skills, setSkills] = useState([
     'Maçonnerie', 'Coffrage', 'Soudure', 'Électricité de base'
@@ -260,7 +262,14 @@ export default function LayoutDashboardJeune({
               <span className="icon">🔍</span> Rechercher des offres
             </button>
           </li>
-          <li><Link href="#"><span className="icon">📝</span> Mes candidatures</Link></li>
+          <li>
+            <button 
+              onClick={() => setCurrentPage('candidatures')}
+              className={currentPage === 'candidatures' ? 'active' : ''}
+            >
+              <span className="icon">📝</span> Mes candidatures
+            </button>
+          </li>
           <li>
             <button 
               onClick={() => setCurrentPage('parcours')}
@@ -814,6 +823,11 @@ export default function LayoutDashboardJeune({
         {/* Page Mon parcours */}
         {currentPage === 'parcours' && (
           <MonParcours />
+        )}
+
+        {/* Page Mes candidatures */}
+        {currentPage === 'candidatures' && (
+          <MesCandidatures />
         )}
 
         {/* Indicateur de sauvegarde */}
