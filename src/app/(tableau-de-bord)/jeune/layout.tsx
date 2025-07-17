@@ -7,6 +7,7 @@ import '../../../styles/profile-management.css'
 import ExperienceManager from '../../../composants/profile/ExperienceManager'
 import FormationHistory from '../../../composants/profile/FormationHistory'
 import JobSearch from '../../../composants/emploi/JobSearch'
+import MonParcours from '../../../composants/parcours/MonParcours'
 import { Formation } from '../../../types/formations'
 
 export default function LayoutDashboardJeune({
@@ -14,7 +15,7 @@ export default function LayoutDashboardJeune({
 }: {
   children: React.ReactNode
 }) {
-  const [currentPage, setCurrentPage] = useState('profile') // 'profile' | 'job-search'
+  const [currentPage, setCurrentPage] = useState('profile') // 'profile' | 'job-search' | 'parcours'
   const [activeTab, setActiveTab] = useState('personal')
   const [skills, setSkills] = useState([
     'Maçonnerie', 'Coffrage', 'Soudure', 'Électricité de base'
@@ -251,7 +252,14 @@ export default function LayoutDashboardJeune({
             </button>
           </li>
           <li><Link href="#"><span className="icon">📝</span> Mes candidatures</Link></li>
-          <li><Link href="#"><span className="icon">🎓</span> Mon parcours</Link></li>
+          <li>
+            <button 
+              onClick={() => setCurrentPage('parcours')}
+              className={currentPage === 'parcours' ? 'active' : ''}
+            >
+              <span className="icon">🎓</span> Mon parcours
+            </button>
+          </li>
           <li><Link href="#"><span className="icon">⭐</span> Mes évaluations</Link></li>
           <li><Link href="#"><span className="icon">🔔</span> Notifications</Link></li>
           <li><Link href="#"><span className="icon">💬</span> Messages</Link></li>
@@ -788,6 +796,11 @@ export default function LayoutDashboardJeune({
         {/* Page de recherche d'offres */}
         {currentPage === 'job-search' && (
           <JobSearch />
+        )}
+
+        {/* Page Mon parcours */}
+        {currentPage === 'parcours' && (
+          <MonParcours />
         )}
 
         {/* Indicateur de sauvegarde */}

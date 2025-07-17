@@ -1590,4 +1590,594 @@ input:focus, select:focus, textarea:focus {
     .modal-buttons .btn {
         flex: 1;
     }
+}
+
+/* Styles pour Mon Parcours */
+.parcours-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.parcours-stats {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.evaluation-section {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.section-header {
+    padding: 25px 30px 20px 30px;
+    background: linear-gradient(135deg, #fef9f9, #f0f9ff);
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.section-header h2 {
+    color: #CE1126;
+    font-size: 1.8rem;
+    margin: 0;
+    font-weight: 700;
+}
+
+.section-header p {
+    color: #666;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.evaluation-date {
+    font-size: 0.9rem;
+    color: #666;
+    background: white;
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: 1px solid #e1e1e1;
+}
+
+.evaluation-card {
+    padding: 30px;
+}
+
+.evaluation-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.evaluator-info h3 {
+    color: #CE1126;
+    font-size: 1.3rem;
+    margin: 0 0 8px 0;
+}
+
+.evaluator-info p {
+    color: #666;
+    margin: 0;
+    font-size: 1rem;
+}
+
+.recommendation-badge {
+    text-align: right;
+}
+
+.recommended-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.recommended-parcours {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(45deg, #e8f5e8, #f0f9ff);
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid #c3e6cb;
+}
+
+.parcours-letter {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.scores-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.score-item {
+    text-align: center;
+}
+
+.score-circle {
+    position: relative;
+    margin: 0 auto 15px;
+    width: 80px;
+    height: 80px;
+}
+
+.score-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #333;
+}
+
+.score-label {
+    font-weight: 600;
+    color: #333;
+    font-size: 1rem;
+}
+
+.recommendation-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid #CE1126;
+    margin-bottom: 25px;
+}
+
+.recommendation-section h4 {
+    color: #CE1126;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.recommendation-section p {
+    line-height: 1.6;
+    color: #555;
+    margin: 0;
+}
+
+.next-steps-section h4 {
+    color: #CE1126;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #009460;
+}
+
+.step-number {
+    background: #009460;
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    flex-shrink: 0;
+    font-size: 0.9rem;
+}
+
+.step-content {
+    flex: 1;
+    line-height: 1.5;
+    color: #555;
+}
+
+.parcours-section {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.parcours-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+    padding: 25px;
+}
+
+.parcours-card {
+    background: white;
+    border: 2px solid #e1e1e1;
+    border-radius: 15px;
+    padding: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.parcours-card:hover {
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transform: translateY(-3px);
+}
+
+.parcours-card.assigned {
+    border-color: #007bff;
+    background: linear-gradient(135deg, #f0f9ff, #ffffff);
+}
+
+.parcours-card.completed {
+    border-color: #009460;
+    background: linear-gradient(135deg, #f0f9f0, #ffffff);
+}
+
+.assigned-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #007bff;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.completed-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #009460;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.parcours-header {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.parcours-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+}
+
+.parcours-icon .parcours-letter {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    background: rgba(255,255,255,0.9);
+    color: #333;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.parcours-emoji {
+    font-size: 2rem;
+}
+
+.parcours-info h3 {
+    color: #CE1126;
+    font-size: 1.3rem;
+    margin: 0 0 5px 0;
+    font-weight: 700;
+}
+
+.parcours-info h4 {
+    color: #333;
+    font-size: 1.1rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+.parcours-description {
+    line-height: 1.6;
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.parcours-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.duration-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.meta-icon {
+    font-size: 1rem;
+}
+
+.progress-section {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #e1e1e1;
+}
+
+.progress-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background: #e1e1e1;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.parcours-footer {
+    display: flex;
+    gap: 10px;
+    margin-top: auto;
+}
+
+.parcours-footer .btn {
+    flex: 1;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+}
+
+/* Modal parcours */
+.parcours-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 20px;
+}
+
+.parcours-modal {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    max-width: 700px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalSlideIn 0.3s ease-out;
+}
+
+.parcours-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 30px 30px 20px 30px;
+    border-bottom: 1px solid #eee;
+    background: linear-gradient(135deg, #fef9f9, #f0f9ff);
+    border-radius: 20px 20px 0 0;
+}
+
+.modal-parcours-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-right: 20px;
+}
+
+.modal-parcours-icon .parcours-letter {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 25px;
+    height: 25px;
+    background: rgba(255,255,255,0.9);
+    color: #333;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.modal-parcours-icon .parcours-emoji {
+    font-size: 2.5rem;
+}
+
+.parcours-modal .modal-title-section h2 {
+    color: #CE1126;
+    font-size: 1.8rem;
+    margin: 0 0 5px 0;
+    font-weight: 700;
+}
+
+.parcours-modal .modal-title-section h3 {
+    color: #333;
+    font-size: 1.3rem;
+    margin: 0 0 10px 0;
+    font-weight: 600;
+}
+
+.assigned-indicator {
+    color: #007bff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background: #f0f9ff;
+    padding: 4px 12px;
+    border-radius: 12px;
+    display: inline-block;
+}
+
+.parcours-modal .modal-content {
+    padding: 25px 30px 0 30px;
+}
+
+.parcours-modal .modal-section {
+    margin-bottom: 25px;
+    padding-left: 0;
+    border-left: none;
+}
+
+.parcours-modal .modal-section h4 {
+    color: #CE1126;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.parcours-modal .modal-section p {
+    line-height: 1.6;
+    color: #555;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.parcours-modal .modal-section.highlight {
+    background: linear-gradient(45deg, #e8f5e8, #f0f9ff);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #c3e6cb;
+}
+
+.parcours-modal .modal-footer {
+    border-top: 1px solid #eee;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: flex-end;
+    background: #f8f9fa;
+    border-radius: 0 0 20px 20px;
+}
+
+.parcours-modal .modal-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.parcours-modal .modal-buttons .btn {
+    padding: 12px 24px;
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .parcours-grid {
+        grid-template-columns: 1fr;
+        padding: 15px;
+    }
+    
+    .evaluation-card {
+        padding: 20px;
+    }
+    
+    .scores-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .evaluation-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .section-header {
+        padding: 20px;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+    
+    .parcours-modal .modal-header {
+        padding: 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .parcours-modal .modal-title-section {
+        text-align: center;
+    }
+    
+    .parcours-modal .modal-content {
+        padding: 0 20px;
+    }
+    
+    .parcours-modal .modal-footer {
+        padding: 20px;
+    }
+    
+    .parcours-modal .modal-buttons {
+        width: 100%;
+    }
+    
+    .parcours-modal .modal-buttons .btn {
+        flex: 1;
+    }
 } 
