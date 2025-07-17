@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { FormulaireInscriptionJeune } from '@/composants/formulaires/FormulaireInscriptionJeune'
 import { FormulaireInscriptionEntreprise } from '@/composants/formulaires/FormulaireInscriptionEntreprise'
+import { SectionMinistre } from '@/composants/auth/SectionMinistre'
 import '@/styles/auth.css'
 
 type TypeInscription = 'jeune' | 'entreprise'
@@ -62,6 +63,9 @@ export default function PageInscription() {
            </button>
          </div>
        </div>
+
+       {/* Section du Ministre */}
+       <SectionMinistre />
 
        {/* Formulaire d'inscription */}
        <div className="bg-white rounded-xl shadow-2xl p-8">

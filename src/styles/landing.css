@@ -41,23 +41,88 @@ header {
 .flag-yellow { background: var(--guinea-yellow); flex: 1; }
 .flag-green { background: var(--guinea-green); flex: 1; }
 
-/* Navigation */
+/* Navigation - Ultra-responsive pour tous écrans */
 nav {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1rem 0;
+    padding: clamp(0.25rem, 1vw, 0.75rem) 0;
+    gap: clamp(0.125rem, 0.5vw, 0.5rem);
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+nav::-webkit-scrollbar {
+    display: none;
+}
+
+/* Fallback pour écrans extrêmement petits */
+@media (max-width: 320px) {
+    nav {
+        padding: 0.125rem 0;
+        gap: 0.025rem;
+    }
+    
+    .logo-section {
+        gap: 0.125rem;
+    }
+    
+    .nav-container {
+        gap: 0.125rem;
+    }
+    
+    .nav-menu-desktop {
+        gap: 0.125rem;
+    }
+    
+    .nav-links {
+        gap: 0.01rem;
+    }
+    
+    .nav-links a {
+        padding: 0.25rem 0.025rem;
+        font-size: 0.55rem;
+    }
+    
+    .logo-title {
+        font-size: 0.7rem;
+    }
+    
+    .ministry-subtitle {
+        font-size: 0.45rem;
+    }
+    
+    .btn-inscrire {
+        padding: 0.25rem 0.4rem;
+        font-size: 0.6rem;
+    }
 }
 
 .logo-section {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: clamp(0.25rem, 0.5vw, 0.75rem);
+    flex-shrink: 0;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: clamp(0.25rem, 0.5vw, 0.75rem);
+    width: 100%;
+}
+
+.nav-menu-desktop {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.25rem, 0.5vw, 0.75rem);
+    flex: 1;
 }
 
 .ministry-logo {
-    width: 60px;
-    height: 60px;
+    width: clamp(32px, 3vw, 56px);
+    height: clamp(32px, 3vw, 56px);
     background: linear-gradient(135deg, var(--guinea-red), var(--guinea-yellow));
     border-radius: 50%;
     display: flex;
@@ -65,7 +130,84 @@ nav {
     justify-content: center;
     color: var(--white);
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: clamp(0.8rem, 1.5vw, 1.4rem);
+}
+
+/* Media queries responsive ultra-simples */
+@media (max-width: 480px) {
+    nav {
+        padding: 0.125rem 0;
+        gap: 0.05rem;
+    }
+    
+    .logo-section {
+        gap: 0.125rem;
+    }
+    
+    .nav-container {
+        gap: 0.125rem;
+    }
+    
+    .nav-menu-desktop {
+        gap: 0.125rem;
+    }
+}
+
+@media (max-width: 640px) {
+    nav {
+        padding: 0.25rem 0;
+        gap: 0.125rem;
+    }
+    
+    .logo-section {
+        gap: 0.25rem;
+    }
+    
+    .nav-container {
+        gap: 0.25rem;
+    }
+    
+    .nav-menu-desktop {
+        gap: 0.25rem;
+    }
+}
+
+@media (min-width: 1920px) {
+    nav {
+        padding: 0.75rem 0;
+        gap: 0.75rem;
+    }
+    
+    .logo-section {
+        gap: 0.75rem;
+    }
+    
+    .nav-container {
+        gap: 0.75rem;
+    }
+    
+    .nav-menu-desktop {
+        gap: 0.75rem;
+    }
+}
+
+@media (min-width: 2560px) {
+    nav {
+        padding: 1rem 0;
+        gap: 1rem;
+    }
+    
+    .logo-section {
+        gap: 1rem;
+    }
+    
+    .nav-container {
+        gap: 1rem;
+    }
+    
+    .nav-menu-desktop {
+        gap: 1rem;
+    }
 }
 
 .logo-text {
@@ -74,36 +216,136 @@ nav {
 }
 
 .logo-title {
-    font-size: 1.8rem;
+    font-size: clamp(0.8rem, 1.5vw, 1.6rem);
     font-weight: bold;
     color: var(--guinea-red);
     text-decoration: none;
+    line-height: 1.1;
 }
 
 .ministry-subtitle {
-    font-size: 0.8rem;
+    font-size: clamp(0.55rem, 1vw, 0.9rem);
     color: var(--text-gray);
     text-transform: uppercase;
+    line-height: 1.1;
+}
+
+/* Media queries pour le logo - Ultra-simples */
+@media (max-width: 480px) {
+    .logo-title {
+        font-size: 0.75rem;
+    }
+    
+    .ministry-subtitle {
+        font-size: 0.5rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .logo-title {
+        font-size: 0.8rem;
+    }
+    
+    .ministry-subtitle {
+        font-size: 0.55rem;
+    }
+}
+
+@media (min-width: 1920px) {
+    .logo-title {
+        font-size: 1.6rem;
+    }
+    
+    .ministry-subtitle {
+        font-size: 0.9rem;
+    }
+}
+
+@media (min-width: 2560px) {
+    .logo-title {
+        font-size: 1.8rem;
+    }
+    
+    .ministry-subtitle {
+        font-size: 1rem;
+    }
 }
 
 .nav-links {
     display: flex;
-    gap: 2rem;
+    gap: clamp(0.05rem, 0.3vw, 0.5rem);
     list-style: none;
+    margin-right: auto;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.nav-links::-webkit-scrollbar {
+    display: none;
 }
 
 .nav-links a {
     text-decoration: none;
     color: var(--dark-gray);
     font-weight: 500;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem clamp(0.125rem, 0.5vw, 0.75rem);
     border-radius: 5px;
     transition: all 0.3s ease;
+    font-size: clamp(0.65rem, 1.2vw, 1rem);
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .nav-links a:hover {
     background: var(--guinea-red);
     color: var(--white);
+}
+
+/* Media queries simplifiées - Utilise clamp() pour fluidité */
+@media (max-width: 480px) {
+    .nav-links {
+        gap: 0.025rem;
+    }
+    
+    .nav-links a {
+        padding: 0.3rem 0.05rem;
+        font-size: 0.6rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .nav-links {
+        gap: 0.05rem;
+    }
+    
+    .nav-links a {
+        padding: 0.4rem 0.125rem;
+        font-size: 0.65rem;
+    }
+}
+
+@media (min-width: 1920px) {
+    .nav-links {
+        gap: 0.6rem;
+    }
+    
+    .nav-links a {
+        padding: 0.5rem 0.8rem;
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 2560px) {
+    .nav-links {
+        gap: 0.8rem;
+    }
+    
+    .nav-links a {
+        padding: 0.6rem 1rem;
+        font-size: 1.1rem;
+    }
 }
 
 /* Navigation Auth Buttons */
@@ -116,10 +358,10 @@ nav {
 .btn-connexion {
     background: var(--guinea-red);
     color: white;
-    padding: 0.5rem 1.5rem;
+    padding: 0.625rem 1.5rem;
     border-radius: 8px;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
     transition: all 0.3s ease;
     border: 2px solid var(--guinea-red);
     cursor: pointer;
@@ -129,6 +371,240 @@ nav {
 .btn-connexion:hover {
     background: transparent;
     color: var(--guinea-red);
+}
+
+/* Styles pour le bouton S'inscrire */
+.btn-inscrire {
+    background: var(--guinea-red);
+    color: white;
+    padding: clamp(0.375rem, 1vw, 0.75rem) clamp(0.75rem, 1.5vw, 1.5rem);
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid var(--guinea-red);
+    cursor: pointer;
+    font-size: clamp(0.7rem, 1.2vw, 1rem);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.btn-inscrire:hover {
+    background: transparent;
+    color: var(--guinea-red);
+}
+
+/* Media queries pour le bouton S'inscrire - Ultra-simples */
+@media (max-width: 480px) {
+    .btn-inscrire {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.65rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .btn-inscrire {
+        padding: 0.375rem 0.75rem;
+        font-size: 0.7rem;
+    }
+}
+
+@media (min-width: 1920px) {
+    .btn-inscrire {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 2560px) {
+    .btn-inscrire {
+        padding: 0.875rem 1.75rem;
+        font-size: 1.1rem;
+    }
+}
+
+/* Écrans ultra-larges 8K+ */
+@media (min-width: 3840px) {
+    nav {
+        padding: 1.25rem 0;
+        gap: 1.25rem;
+    }
+    
+    .logo-section {
+        gap: 1.25rem;
+    }
+    
+    .nav-container {
+        gap: 1.25rem;
+    }
+    
+    .nav-menu-desktop {
+        gap: 1.25rem;
+    }
+    
+    .nav-links {
+        gap: 1rem;
+    }
+    
+    .nav-links a {
+        padding: 0.75rem 1.25rem;
+        font-size: 1.25rem;
+    }
+    
+    .logo-title {
+        font-size: 2rem;
+    }
+    
+    .ministry-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .btn-inscrire {
+        padding: 1rem 2rem;
+        font-size: 1.25rem;
+    }
+}
+
+/* Section Ministre */
+.ministre-section {
+    padding: 4rem 0;
+    background: var(--light-gray);
+}
+
+.ministre-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 3rem;
+    box-shadow: 0 20px 40px rgba(206, 17, 38, 0.1);
+    border-top: 5px solid var(--guinea-red);
+    margin: 2rem 0;
+}
+
+.ministre-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.ministre-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--guinea-red), var(--guinea-yellow));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 10px 30px rgba(206, 17, 38, 0.2);
+}
+
+.ministre-avatar .ministry-logo {
+    color: var(--white);
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.ministre-info h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--guinea-red);
+    margin-bottom: 0.5rem;
+}
+
+.ministre-info p {
+    color: var(--text-gray);
+    margin-bottom: 0.25rem;
+}
+
+.ministre-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.ministre-context {
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.ministre-quote {
+    border-left: 5px solid var(--guinea-yellow);
+    padding-left: 2rem;
+    font-style: italic;
+    position: relative;
+}
+
+.ministre-quote::before {
+    content: '"';
+    font-size: 6rem;
+    color: var(--guinea-red);
+    position: absolute;
+    left: -1rem;
+    top: -2rem;
+    opacity: 0.3;
+    font-family: serif;
+}
+
+.quote-text {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: var(--dark-gray);
+    margin-bottom: 1.5rem;
+}
+
+.quote-continuation {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-gray);
+    margin-bottom: 0;
+}
+
+.quote-continuation strong {
+    color: var(--guinea-red);
+}
+
+/* Responsive pour la section ministre */
+@media (max-width: 768px) {
+    .ministre-card {
+        padding: 2rem;
+    }
+    
+    .ministre-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+    
+    .ministre-avatar {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .ministre-avatar .ministry-logo {
+        font-size: 1.5rem;
+    }
+    
+    .ministre-info h3 {
+        font-size: 1.3rem;
+    }
+    
+    .ministre-quote {
+        padding-left: 1rem;
+    }
+    
+    .ministre-quote::before {
+        font-size: 4rem;
+        left: -0.5rem;
+        top: -1rem;
+    }
+    
+    .quote-text {
+        font-size: 1rem;
+    }
+    
+    .quote-continuation {
+        font-size: 0.95rem;
+    }
 }
 
 /* Hero Section */
@@ -786,4 +1262,4 @@ footer {
     .logo-title {
         font-size: 1.5rem;
     }
-} 
+}

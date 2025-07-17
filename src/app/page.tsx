@@ -4,6 +4,7 @@ import { serviceAuth } from '@/services/auth'
 import { useState, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { SectionMinistre } from '@/composants/landing/SectionMinistre'
 import '@/styles/landing.css'
 
 export default function PageAccueil() {
@@ -37,7 +38,6 @@ export default function PageAccueil() {
           </div>
           <ul className="nav-links">
             <li><a href="#accueil">Accueil</a></li>
-            <li><a href="#inscription">Inscription</a></li>
             <li><a href="#contexte">Contexte</a></li>
             <li><a href="#parcours">Parcours</a></li>
             <li><a href="#profil-suivi">Profil & Suivi</a></li>
@@ -45,6 +45,7 @@ export default function PageAccueil() {
             <li><a href="#composantes">Composantes</a></li>
             <li><a href="#accessibilite">Accessibilité</a></li>
             <li><a href="#partenaires">Partenaires</a></li>
+            <li><a href="#inscription">Inscription</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
           {/* NOUVEAU : Bouton de connexion dans la navigation */}
@@ -60,7 +61,6 @@ export default function PageAccueil() {
           <div className="mobile-nav" id="mobileNav">
             <ul>
               <li><a href="#accueil" onClick={() => closeMobileMenu()}>Accueil</a></li>
-              <li><a href="#inscription" onClick={() => closeMobileMenu()}>Inscription</a></li>
               <li><a href="#contexte" onClick={() => closeMobileMenu()}>Contexte</a></li>
               <li><a href="#parcours" onClick={() => closeMobileMenu()}>Parcours</a></li>
               <li><a href="#profil-suivi" onClick={() => closeMobileMenu()}>Profil & Suivi</a></li>
@@ -68,6 +68,7 @@ export default function PageAccueil() {
               <li><a href="#composantes" onClick={() => closeMobileMenu()}>Composantes</a></li>
               <li><a href="#accessibilite" onClick={() => closeMobileMenu()}>Accessibilité</a></li>
               <li><a href="#partenaires" onClick={() => closeMobileMenu()}>Partenaires</a></li>
+              <li><a href="#inscription" onClick={() => closeMobileMenu()}>Inscription</a></li>
               <li><a href="#contact" onClick={() => closeMobileMenu()}>Contact</a></li>
               {/* NOUVEAU : Bouton connexion mobile */}
               <li><button onClick={() => { setIsLoginMode(!isLoginMode); closeMobileMenu(); }}>Se connecter</button></li>
@@ -101,6 +102,8 @@ export default function PageAccueil() {
           </div>
         </div>
       </section>
+
+      <SectionMinistre />
 
       <section className="contact-section" id="inscription">
         <div className="container">
@@ -188,32 +191,30 @@ export default function PageAccueil() {
               </button>
             </form>
           )}
-        </div>
-      </section>
-
-      <section className="stats-highlight">
-        <div className="container">
-          <h2>Le Défi de la Jeunesse Guinéenne</h2>
-          <div className="stats-grid">
-            <div className="stat-item">
-              <span className="stat-number">64%</span>
-              <span>des jeunes (15-35 ans) en situation de vulnérabilité professionnelle</span>
+          
+          {/* Section Autres Lieux d'Inscription */}
+          <div style={{background: 'var(--light-gray)', padding: '2rem', borderRadius: '15px', marginTop: '2rem', textAlign: 'center'}}>
+            <h3 style={{color: 'var(--guinea-red)', marginBottom: '1rem'}}>📍 Autres Lieux d'Inscription</h3>
+            <p style={{marginBottom: '1rem'}}>L'inscription peut également se faire dans les centres suivants :</p>
+            <div style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem'}}>
+              <div style={{background: 'white', padding: '1rem', borderRadius: '8px', borderLeft: '4px solid var(--guinea-green)'}}>
+                <h4>🏠 Maisons des Jeunes</h4>
+                <p style={{fontSize: '0.9rem'}}>Dans toutes les régions administratives</p>
+              </div>
+              <div style={{background: 'white', padding: '1rem', borderRadius: '8px', borderLeft: '4px solid var(--guinea-yellow)'}}>
+                <h4>🏛️ Mairies Pilotes</h4>
+                <p style={{fontSize: '0.9rem'}}>Centres d'inscription désignés</p>
+              </div>
             </div>
-            <div className="stat-item">
-              <span className="stat-number">24%</span>
-              <span>des jeunes sans emploi ou sous-employés</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">90%</span>
-              <span>du marché dominé par le secteur informel</span>
-            </div>
-            <div className="stat-item">
-              <span className="stat-number">2%</span>
-              <span>seulement des actifs avec contrat écrit</span>
+            <div style={{background: 'rgba(184, 32, 46, 0.1)', padding: '1rem', borderRadius: '8px', marginTop: '1rem'}}>
+              <h4 style={{color: 'var(--guinea-red)'}}>🆔 Carte d'Identification Numérique</h4>
+              <p style={{fontSize: '0.9rem'}}>Après validation, vous pourrez <strong>télécharger votre carte d'identification</strong> du programme depuis votre espace personnel. <em>Pas de carte physique pour l'instant.</em></p>
             </div>
           </div>
         </div>
       </section>
+
+
 
       <section className="content-section" id="contexte">
         <div className="container">
@@ -634,9 +635,12 @@ export default function PageAccueil() {
               <a href="#accueil">Accueil</a>
               <a href="#contexte">Contexte & Objectifs</a>
               <a href="#parcours">Parcours d&apos;Insertion</a>
-              <a href="#composantes">4 Composantes</a>
+              <a href="#profil-suivi">Profil & Suivi</a>
+              <a href="#modele-economique">Modèle Économique</a>
+              <a href="#composantes">Composantes</a>
+              <a href="#accessibilite">Accessibilité</a>
               <a href="#partenaires">Partenaires</a>
-              <a href="#contact">Inscription</a>
+              <a href="#inscription">Inscription</a>
             </div>
             <div className="footer-section">
               <h3>Ministère de la Jeunesse et des Sports</h3>

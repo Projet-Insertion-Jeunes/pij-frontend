@@ -364,3 +364,92 @@
     color: var(--dark-gray);
     background: rgba(206, 17, 38, 0.1);
 } 
+
+/* Section ministre */
+.section-ministre {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.ministre-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.ministre-avatar {
+    width: 4rem;
+    height: 4rem;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--guinea-red);
+    font-weight: bold;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.ministre-name {
+    color: white;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.ministre-title {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.875rem;
+}
+
+.ministre-quote {
+    border-left: 4px solid var(--guinea-yellow);
+    padding-left: 1.5rem;
+    font-style: italic;
+}
+
+.ministre-quote p {
+    color: white;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.ministre-quote p:last-child {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 0;
+}
+
+/* Responsive design pour section ministre */
+@media (max-width: 768px) {
+    .section-ministre {
+        padding: 1rem;
+    }
+    
+    .ministre-header {
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .ministre-avatar {
+        width: 3rem;
+        height: 3rem;
+        font-size: 1rem;
+    }
+    
+    .ministre-name {
+        font-size: 1.125rem;
+    }
+    
+    .ministre-quote {
+        padding-left: 1rem;
+    }
+    
+    .ministre-quote p {
+        font-size: 0.9rem;
+    }
+}
